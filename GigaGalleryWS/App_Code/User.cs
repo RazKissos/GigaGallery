@@ -119,29 +119,22 @@ namespace UserNS
                     throw new ArgumentException("User Name must be a string!");
             }
         }
-
-        private string user_birthday;
-        public string UserBirthday
+        private DateTime user_birthday;
+        public DateTime UserBirthday
         {
             get
             {
-                if (this.user_birthday == "")
+                if (this.user_birthday == default(DateTime))
                     throw new Exception("Data is uninitialized!");
                 else
                     return this.user_birthday;
             }
             set
             {
-                if (isDateFormatValid(value))
-                {
-                    DateTime dt;
-                    if (DateTime.TryParseExact(value, Constants.DATE_FORMAT, null, System.Globalization.DateTimeStyles.None, out dt) == true) // Check if date exists.
-                        this.user_birthday = value;
-                    else
-                        throw new Exception("User Birth Day is a non existant date!");
-                }
+                if (value.Year >= 1900)
+                    this.user_birthday = value;
                 else
-                    throw new Exception(string.Format("User Birth Day must be in this format: {0}!", Constants.DATE_FORMAT.ToUpper()));
+                    throw new Exception("User Birth Year is not valid!");
             }
         }
 
@@ -165,7 +158,6 @@ namespace UserNS
                     throw new Exception("User Album Count must be positive or zero!");
             }
         }
-
         protected bool is_admin = false;
         public bool IsAdmin { get { return this.is_admin; } }
         public User()
@@ -182,7 +174,7 @@ namespace UserNS
         /// <param name="birthday">user birthday (in format `dateFormat`)</param>
         /// <param name="albumCount">the amounts of albums the user has.</param>
         /// <param name="isAdmin">is the user an admin.</param>
-        public User(int id, string name, string email, string password, string birthday, int albumCount, bool isAdmin)
+        public User(int id, string name, string email, string password, DateTime birthday, int albumCount, bool isAdmin)
         {
             this.wipe();
             try
@@ -201,41 +193,13 @@ namespace UserNS
                 throw e;
             }
         }
+        public User(int id, string name, string email, string password, DateTime birthday) : this(id, name, email, password, birthday, 0, false) { }
         /// <summary>
         /// Copy Constructor.
         /// </summary>
         /// <param name="user">Other User to copy data from</param>
+        /// 
         public User(User user) : this(user.UserId, user.UserName, user.UserEmail, user.UserPassword, user.UserBirthday, user.UserAlbumCount, user.is_admin) { }
-
-        /// <summary>
-        /// Function that checks if date is in valid foramt `dateFormat`.
-        /// </summary>
-        /// <param name="dateStr">The string to check for matching the formay</param>
-        /// <returns>boolean true if string matches or false if string is invalid</returns>
-        bool isDateFormatValid(string dateStr)
-        {
-            // Birthday String Template should be dd.mm.yyyy: 
-            // -    First period index: 2
-            // -    Second period index: 5
-            int tempIndex = 0;
-            if ((tempIndex = dateStr.IndexOf(".")) != 2)
-                return false;
-            if ((tempIndex = dateStr.IndexOf(".", tempIndex + 1)) != 5)
-                return false;
-            if (dateStr.Length != Constants.DATE_FORMAT.Length)
-                return false;
-            if (!(Char.IsDigit(dateStr[0]) &&
-                Char.IsDigit(dateStr[1]) &&
-                Char.IsDigit(dateStr[3]) &&
-                Char.IsDigit(dateStr[4]) &&
-                Char.IsDigit(dateStr[6]) &&
-                Char.IsDigit(dateStr[7]) &&
-                Char.IsDigit(dateStr[8]) &&
-                Char.IsDigit(dateStr[9]))) // Validate that all non periods are numbers.
-                return false;
-
-            return true;
-        }
         /// <summary>
         /// Wipes all the worker data to default values that are invalid,
         /// in any case of access to uninitialized data there will be an exception thrown.
@@ -246,7 +210,7 @@ namespace UserNS
             this.user_name = "";
             this.user_email = "";
             this.user_password = "";
-            this.user_birthday = "";
+            this.user_birthday = default(DateTime);
             this.user_album_count = -1;
             this.is_admin = false;
         }

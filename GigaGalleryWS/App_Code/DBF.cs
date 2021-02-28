@@ -12,26 +12,116 @@ using ImageNS;
 /// <summary>
 /// Summary description for DBF
 /// </summary>
-namespace DBF
+namespace DBFNS
 {
     public class DBF
     {
-        #region object functions
-        public User GetUserById(int user_id)
+        #region Update
+        public static bool UpdateUser(User u)
+        {
+            if (GetUserById(u.UserId) != null)
+            {
+                string sql = string.Format("update users user_name = '{0}' user_password = '{1}' user_email = '{2}' user_album_count = '{3}' user_birthday = #{4}# is_admin = '{5}' where user_id = '{6}'", u.UserName, u.UserPassword, u.UserEmail, u.UserAlbumCount, u.UserAlbumCount, u.UserBirthday, u.IsAdmin, u.UserId);
+                return ChangeTable(sql) == 1;
+            }
+            return false;
+        }
+        public static bool UpdateAlbum(Album al)
+        {
+            if (GetAlbumById(al.AlbumId) != null)
+            {
+                string sql = string.Format("update albums album_name = '{0}' album_owner_id = '{1}' album_creation_time = #{2}# album_size = '{3}' where album_id = '{4}'", al.AlbumName, al.AlbumOwnerId, al.AlbumCreationTime, al.AlbumSize, al.AlbumId);
+                return ChangeTable(sql) == 1;
+            }
+            return false;
+        }
+        public static bool UpdateImage(Image img)
+        {
+            if (GetImageById(img.ImageId) != null)
+            {
+                string sql = string.Format("update images image_album_id = '{0}' image_owner_id = '{1}' image_name = '{2}' image_creation_time = #{3}# image_file_path = '{4}' where image_id = '{5}'", img.ImageAlbumId, img.ImageOwnerId, img.ImageName, img.ImageCreationTime, img.ImageFilePath, img.ImageId);
+                return ChangeTable(sql) == 1;
+            }
+            return false;
+        }
+        #endregion
+        #region Delete
+        public static bool DeleteUser(User u)
+        {
+            if (GetUserById(u.UserId) != null)
+            {
+                string sql = string.Format("delete from users where user_id = '{0}'", u.UserId);
+                return ChangeTable(sql) == 1;
+            }
+            return false;
+        }
+        public static bool DeleteAlbum(Album al)
+        {
+            if (GetAlbumById(al.AlbumId) != null)
+            {
+                string sql = string.Format("delete from albums where album_id = '{0}'", al.AlbumId);
+                return ChangeTable(sql) == 1;
+            }
+            return false;
+        }
+        public static bool DeleteImage(Image img)
+        {
+            if (GetImageById(img.ImageId) != null)
+            {
+                string sql = string.Format("delete from images where image_id = '{0}'", img.ImageId);
+                return ChangeTable(sql) == 1;
+            }
+            return false;
+        }
+        #endregion
+        #region Select
+        public static User GetUserById(int user_id)
         {
             string sql = string.Format("select * from users where user_id='{0}' ", user_id);
 
             DataRow dr;
             try
             {
-                dr = selectFromTable(sql).Rows[0];
+                dr = selectFromTable(sql).Rows[0]; 
+                return new User(int.Parse(dr["user_id"].ToString()), dr["user_name"].ToString(), dr["user_email"].ToString(), dr["user_password"].ToString(), DateTime.Parse(dr["user_birthday"].ToString()), int.Parse(dr["user_album_count"].ToString()), bool.Parse(dr["is_admin"].ToString()));
             }
-            catch
-            {
-                return null;
-            }
+            catch { return null; }
+        }
+        public static User GetUserByEmail(string email)
+        {
+            string sql = string.Format("select * from users where user_email='{0}' ", email);
 
-            return new User(int.Parse(dr["user_id"].ToString()), dr["user_name"].ToString(), dr["user_email"].ToString(), dr["user_password"].ToString(), dr["user_birthday"].ToString(), int.Parse(dr["user_album_count"].ToString()), bool.Parse(dr["is_admin"].ToString()));
+            DataRow dr;
+            try
+            {
+                dr = selectFromTable(sql).Rows[0];
+                return new User(int.Parse(dr["user_id"].ToString()), dr["user_name"].ToString(), dr["user_email"].ToString(), dr["user_password"].ToString(), DateTime.Parse(dr["user_birthday"].ToString()), int.Parse(dr["user_album_count"].ToString()), bool.Parse(dr["is_admin"].ToString()));
+            }
+            catch { return null; }
+        }
+        public static Album GetAlbumById(int album_id)
+        {
+            string sql = string.Format("select * from albums where album_id='{0}' ", album_id);
+
+            DataRow dr;
+            try
+            {
+                dr = selectFromTable(sql).Rows[0];
+                return new Album(int.Parse(dr["album_id"].ToString()), int.Parse(dr["album_owner_id"].ToString()), dr["album_name"].ToString(), DateTime.Parse(dr["album_creation_time"].ToString()), int.Parse(dr["album_size"].ToString()));
+            }
+            catch { return null; }
+        }
+        public static Image GetImageById(int image_id)
+        {
+            string sql = string.Format("select * from images where image_id='{0}' ", image_id);
+
+            DataRow dr;
+            try
+            {
+                dr = selectFromTable(sql).Rows[0];
+                return new Image(int.Parse(dr["image_id"].ToString()), int.Parse(dr["owner_id"].ToString()), int.Parse(dr["album_id"].ToString()), dr["image_name"].ToString(), DateTime.Parse(dr["image_creation_time"].ToString()), dr["image_file"].ToString());
+            }
+            catch { return null; }
         }
         public static List<Album> GetUserAlbumsById(int owner_id)
         {
@@ -54,7 +144,7 @@ namespace DBF
             for (int i = 0; i < dt.Rows.Count; i++)
             {
                 DataRow dr = dt.Rows[i];
-                toRet.Add(new Album(int.Parse(dr["album_id"].ToString()), int.Parse(dr["album_owner_id"].ToString()), dr["album_name"].ToString(), DateTime.Parse(dr["album_creation_time"].ToString())));
+                toRet.Add(new Album(int.Parse(dr["album_id"].ToString()), int.Parse(dr["album_owner_id"].ToString()), dr["album_name"].ToString(), DateTime.Parse(dr["album_creation_time"].ToString()), int.Parse(dr["album_size"].ToString())));
             }
 
             return toRet;
@@ -97,7 +187,7 @@ namespace DBF
 
             foreach (DataRow dr in dt.Rows)
             {
-                listToRet.Add(new User(int.Parse(dr["user_id"].ToString()), dr["user_name"].ToString(), dr["user_email"].ToString(), dr["user_password"].ToString(), dr["user_birthday"].ToString(), int.Parse(dr["user_album_count"].ToString()), bool.Parse(dr["is_admin"].ToString())));
+                listToRet.Add(new User(int.Parse(dr["user_id"].ToString()), dr["user_name"].ToString(), dr["user_email"].ToString(), dr["user_password"].ToString(), DateTime.Parse(dr["user_birthday"].ToString()), int.Parse(dr["user_album_count"].ToString()), bool.Parse(dr["is_admin"].ToString())));
             }
 
             return listToRet;
@@ -133,11 +223,25 @@ namespace DBF
             }
             return listToRet;
         }
+        public static bool Login(string email, string password)
+        {
+            User u = GetUserByEmail(email);
+            if (u != null)
+            {
+                if (password == u.UserPassword)
+                    return true;
+            }
+            return false;
+        }
+        #endregion
+        #region Add
         public static bool AddUser(User u)
         {
-            if (GetUsersByName(u.UserName) != null)
-                // Code will stop if it reaces this if becuase we throw exception.
-                throw new Exception("Username is already in use!");
+            User users = GetUserByEmail(u.UserEmail);
+            if (users != null)
+            {
+                throw new Exception("Email is already in use!");
+            }
 
             string sql = string.Format("insert into users (user_name, user_password, user_email, user_birthday, user_album_count, is_admin) values('{0}', '{1}', '{2}', #{3}#, '{4}' ,'{5}')", u.UserName, u.UserPassword, u.UserEmail, u.UserBirthday, u.UserAlbumCount, u.IsAdmin);
             return DBF.ChangeTable(sql) == 1;
@@ -153,7 +257,7 @@ namespace DBF
                     if (al.AlbumOwnerId == a.AlbumOwnerId)
                     {
                         // Code will stop if it reaces this if becuase we throw exception.
-                        throw new Exception("Album Name is already used by this user!");
+                        throw new Exception("An Album with the same name already belongs to this user!");
                     }
                 }
             }
@@ -172,7 +276,7 @@ namespace DBF
                     if (img.ImageAlbumId == i.ImageAlbumId)
                     {
                         // Code will stop if it reaces this if becuase we throw exception.
-                        throw new Exception("Image Name is already in use in this album!");
+                        throw new Exception("An Image with the same name already exists in this album!");
                     }
                 }
             }
@@ -230,6 +334,5 @@ namespace DBF
             return dt;
         }
         #endregion
-
     }
 }
