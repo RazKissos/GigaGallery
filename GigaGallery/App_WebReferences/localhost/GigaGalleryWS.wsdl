@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://gigagallery.net/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://gigagallery.net/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://gigagallery.net/">
+      <s:element name="Login">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="email" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LoginResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="LoginResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Signup">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="name" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="email" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="birthday" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SignupResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SignupResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AdminAddUser">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="name" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="email" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="birthday" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="isadmin" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AdminAddUserResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="AdminAddUserResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddAlbum">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="owner_id" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="name" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddAlbumResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="AddAlbumResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddImage">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="owner_id" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="album_id" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="name" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="bytes" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddImageResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="AddImageResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="LoginSoapIn">
+    <wsdl:part name="parameters" element="tns:Login" />
+  </wsdl:message>
+  <wsdl:message name="LoginSoapOut">
+    <wsdl:part name="parameters" element="tns:LoginResponse" />
+  </wsdl:message>
+  <wsdl:message name="SignupSoapIn">
+    <wsdl:part name="parameters" element="tns:Signup" />
+  </wsdl:message>
+  <wsdl:message name="SignupSoapOut">
+    <wsdl:part name="parameters" element="tns:SignupResponse" />
+  </wsdl:message>
+  <wsdl:message name="AdminAddUserSoapIn">
+    <wsdl:part name="parameters" element="tns:AdminAddUser" />
+  </wsdl:message>
+  <wsdl:message name="AdminAddUserSoapOut">
+    <wsdl:part name="parameters" element="tns:AdminAddUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="AddAlbumSoapIn">
+    <wsdl:part name="parameters" element="tns:AddAlbum" />
+  </wsdl:message>
+  <wsdl:message name="AddAlbumSoapOut">
+    <wsdl:part name="parameters" element="tns:AddAlbumResponse" />
+  </wsdl:message>
+  <wsdl:message name="AddImageSoapIn">
+    <wsdl:part name="parameters" element="tns:AddImage" />
+  </wsdl:message>
+  <wsdl:message name="AddImageSoapOut">
+    <wsdl:part name="parameters" element="tns:AddImageResponse" />
+  </wsdl:message>
+  <wsdl:portType name="GigaGalleryWSSoap">
+    <wsdl:operation name="Login">
+      <wsdl:input message="tns:LoginSoapIn" />
+      <wsdl:output message="tns:LoginSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Signup">
+      <wsdl:input message="tns:SignupSoapIn" />
+      <wsdl:output message="tns:SignupSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AdminAddUser">
+      <wsdl:input message="tns:AdminAddUserSoapIn" />
+      <wsdl:output message="tns:AdminAddUserSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddAlbum">
+      <wsdl:input message="tns:AddAlbumSoapIn" />
+      <wsdl:output message="tns:AddAlbumSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddImage">
+      <wsdl:input message="tns:AddImageSoapIn" />
+      <wsdl:output message="tns:AddImageSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="GigaGalleryWSSoap" type="tns:GigaGalleryWSSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Login">
+      <soap:operation soapAction="http://gigagallery.net/Login" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Signup">
+      <soap:operation soapAction="http://gigagallery.net/Signup" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AdminAddUser">
+      <soap:operation soapAction="http://gigagallery.net/AdminAddUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddAlbum">
+      <soap:operation soapAction="http://gigagallery.net/AddAlbum" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddImage">
+      <soap:operation soapAction="http://gigagallery.net/AddImage" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="GigaGalleryWSSoap12" type="tns:GigaGalleryWSSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Login">
+      <soap12:operation soapAction="http://gigagallery.net/Login" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Signup">
+      <soap12:operation soapAction="http://gigagallery.net/Signup" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AdminAddUser">
+      <soap12:operation soapAction="http://gigagallery.net/AdminAddUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddAlbum">
+      <soap12:operation soapAction="http://gigagallery.net/AddAlbum" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddImage">
+      <soap12:operation soapAction="http://gigagallery.net/AddImage" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="GigaGalleryWS">
+    <wsdl:port name="GigaGalleryWSSoap" binding="tns:GigaGalleryWSSoap">
+      <soap:address location="http://localhost:1242/GigaGalleryWS.asmx" />
+    </wsdl:port>
+    <wsdl:port name="GigaGalleryWSSoap12" binding="tns:GigaGalleryWSSoap12">
+      <soap12:address location="http://localhost:1242/GigaGalleryWS.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

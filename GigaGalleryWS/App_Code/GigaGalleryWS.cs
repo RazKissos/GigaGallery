@@ -8,6 +8,7 @@ using DBFNS;
 using UserNS;
 using ImageNS;
 using AlbumNS;
+using ConstantsNS;
 
 /// <summary>
 /// Summary description for GigaGalleryWS
@@ -21,6 +22,19 @@ public class GigaGalleryWS : System.Web.Services.WebService
     [WebMethod]
     public bool Login(string email, string password)
     {
+        if (password.Length < Constants.MIN_PASSWORD_LENGTH || password.Length > Constants.MAX_PASSWORD_LENGTH)
+        {
+            Exception e = new Exception("Password Error");
+            e.Data.Add("stringInfo", string.Format("Password Length must be longer than {0} and shorter than {1}!", Constants.MIN_PASSWORD_LENGTH, Constants.MAX_PASSWORD_LENGTH));
+            throw e;
+        }
+            
+        else if (email.Length > Constants.MAX_EMAIL_LENGTH)
+        {
+            Exception e = new Exception("Email Error");
+            e.Data.Add("stringInfo", string.Format("Email Length must be shorter than {0}!", Constants.MAX_EMAIL_LENGTH));
+            throw e;
+        }
         return DBF.Login(email, password);
     }
     [WebMethod]
@@ -56,6 +70,7 @@ public class GigaGalleryWS : System.Web.Services.WebService
         }
         catch(Exception e) { throw e; }
     }
+    [WebMethod]
     public bool AddImage(int owner_id, int album_id, string name, byte[] bytes)
     {
         try
