@@ -17,6 +17,34 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="CheckPasswordLength">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckPasswordLengthResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CheckPasswordLengthResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckEmailLength">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="email" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckEmailLengthResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CheckEmailLengthResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="Signup">
         <s:complexType>
           <s:sequence>
@@ -34,6 +62,30 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GetUserObj">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="email" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserObjResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetUserObjResult" type="tns:User" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="User">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="UserId" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UserEmail" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UserPassword" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserBirthday" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserAlbumCount" type="s:int" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="AdminAddUser">
         <s:complexType>
           <s:sequence>
@@ -92,11 +144,29 @@
   <wsdl:message name="LoginSoapOut">
     <wsdl:part name="parameters" element="tns:LoginResponse" />
   </wsdl:message>
+  <wsdl:message name="CheckPasswordLengthSoapIn">
+    <wsdl:part name="parameters" element="tns:CheckPasswordLength" />
+  </wsdl:message>
+  <wsdl:message name="CheckPasswordLengthSoapOut">
+    <wsdl:part name="parameters" element="tns:CheckPasswordLengthResponse" />
+  </wsdl:message>
+  <wsdl:message name="CheckEmailLengthSoapIn">
+    <wsdl:part name="parameters" element="tns:CheckEmailLength" />
+  </wsdl:message>
+  <wsdl:message name="CheckEmailLengthSoapOut">
+    <wsdl:part name="parameters" element="tns:CheckEmailLengthResponse" />
+  </wsdl:message>
   <wsdl:message name="SignupSoapIn">
     <wsdl:part name="parameters" element="tns:Signup" />
   </wsdl:message>
   <wsdl:message name="SignupSoapOut">
     <wsdl:part name="parameters" element="tns:SignupResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetUserObjSoapIn">
+    <wsdl:part name="parameters" element="tns:GetUserObj" />
+  </wsdl:message>
+  <wsdl:message name="GetUserObjSoapOut">
+    <wsdl:part name="parameters" element="tns:GetUserObjResponse" />
   </wsdl:message>
   <wsdl:message name="AdminAddUserSoapIn">
     <wsdl:part name="parameters" element="tns:AdminAddUser" />
@@ -121,9 +191,21 @@
       <wsdl:input message="tns:LoginSoapIn" />
       <wsdl:output message="tns:LoginSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="CheckPasswordLength">
+      <wsdl:input message="tns:CheckPasswordLengthSoapIn" />
+      <wsdl:output message="tns:CheckPasswordLengthSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckEmailLength">
+      <wsdl:input message="tns:CheckEmailLengthSoapIn" />
+      <wsdl:output message="tns:CheckEmailLengthSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="Signup">
       <wsdl:input message="tns:SignupSoapIn" />
       <wsdl:output message="tns:SignupSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserObj">
+      <wsdl:input message="tns:GetUserObjSoapIn" />
+      <wsdl:output message="tns:GetUserObjSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="AdminAddUser">
       <wsdl:input message="tns:AdminAddUserSoapIn" />
@@ -149,8 +231,35 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="CheckPasswordLength">
+      <soap:operation soapAction="http://gigagallery.net/CheckPasswordLength" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckEmailLength">
+      <soap:operation soapAction="http://gigagallery.net/CheckEmailLength" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="Signup">
       <soap:operation soapAction="http://gigagallery.net/Signup" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserObj">
+      <soap:operation soapAction="http://gigagallery.net/GetUserObj" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -197,8 +306,35 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="CheckPasswordLength">
+      <soap12:operation soapAction="http://gigagallery.net/CheckPasswordLength" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckEmailLength">
+      <soap12:operation soapAction="http://gigagallery.net/CheckEmailLength" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="Signup">
       <soap12:operation soapAction="http://gigagallery.net/Signup" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserObj">
+      <soap12:operation soapAction="http://gigagallery.net/GetUserObj" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

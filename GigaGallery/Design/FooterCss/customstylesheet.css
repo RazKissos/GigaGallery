@@ -1,0 +1,40 @@
+﻿.footerlinks {
+    color: #ffffff;
+    text-decoration: none !important;
+}
+
+.footerlinks:hover {
+    color: #ffd800;
+}
+
+#footer1 {
+    background: #ffd754;
+}
+
+#footer2 {
+    background: #f5bc00;
+}
+/* green*/
+/*#footer1 {
+    background: #20B2AA;
+}
+
+#footer2 {
+    background: #008080;
+}*/
+/*yellow*/
+/*#footer1 {
+    background: #FFD700;
+}
+
+#footer2 {
+    background: #FFA500;
+}*/
+/*red*/
+/*#footer1 {
+    background: #B22222;
+}
+
+#footer2 {
+    background: #800000;
+}*/
