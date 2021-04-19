@@ -11,7 +11,7 @@
     <table align="center">
         <tr>
             <td class="auto-style1">
-                <asp:TextBox ID="emailTB" runat="server" Height="25px" TextMode="Email" Width="175px"></asp:TextBox>
+                <asp:TextBox ID="emailTB" runat="server" Height="25px" TextMode="Email" Width="175px" placeholder="email"></asp:TextBox>
             </td>
             <td>
                 <asp:Label ID="RequiredEmailLabel" runat="server" Text="Must specify an email!" ForeColor="Red" Visible="false"></asp:Label>
@@ -19,7 +19,7 @@
         </tr>
         <tr>
             <td class="auto-style1">
-                <asp:TextBox ID="passwordTB" runat="server" Height="23px" TextMode="Password" Width="175px"></asp:TextBox>
+                <asp:TextBox ID="passwordTB" runat="server" Height="23px" TextMode="Password" Width="175px" placeholder="password"></asp:TextBox>
             </td>
             <td>
                 <asp:Label ID="RequiredPasswordLabel" runat="server" Text="Must specify a password!" ForeColor="Red" Visible="false"></asp:Label>

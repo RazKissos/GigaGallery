@@ -40,11 +40,11 @@
                     <img src="Design/images/homeIcon.png" height="30px" width="30px"/>
                     Giga Gallery
                 </a>
-                <a class="navbar-brand" href="/SignUp.aspx">
+                <a class="navbar-brand" href="/AdminSignUp.aspx">
                     <img src="Design/images/signUpIcon.png" height="30px" width="30px" />
                     Sign up
                 </a>
-                <a class="navbar-brand" href="/Login.aspx">
+                <a class="navbar-brand" href="/AdminLogin.aspx">
                     <img src="Design/images/loginIcon.png" height="30px" width="30px" />
                     Log in
                 </a>

@@ -11,4 +11,14 @@ public partial class AdminPage : System.Web.UI.Page
     {
 
     }
+
+    protected void performActionBtn_Click(object sender, EventArgs e)
+    {
+
+    }
+
+    protected void searchDataBtn_Click(object sender, EventArgs e)
+    {
+
+    }
 }
