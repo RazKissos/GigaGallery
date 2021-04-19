@@ -143,7 +143,10 @@ namespace AlbumNS
         public Album(int id, int owner_id, string name) : this(id, owner_id, name, DateTime.Now, 0) { }
         // Copy Constructor.
         public Album(Album other) : this(other.AlbumId, other.AlbumOwnerId, other.AlbumName, other.AlbumCreationTime, other.AlbumSize) { }
-
+        
+        /// <summary>
+        /// This function resets all the values of the class to known default values.
+        /// </summary>
         private void wipe()
         {
             this.album_id = -1;

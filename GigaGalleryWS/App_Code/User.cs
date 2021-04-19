@@ -200,9 +200,9 @@ namespace UserNS
         /// <param name="user">Other User to copy data from</param>
         /// 
         public User(User user) : this(user.UserId, user.UserName, user.UserEmail, user.UserPassword, user.UserBirthday, user.UserAlbumCount, user.is_admin) { }
+        
         /// <summary>
-        /// Wipes all the worker data to default values that are invalid,
-        /// in any case of access to uninitialized data there will be an exception thrown.
+        /// This function resets all the values of the class to known default values.
         /// </summary>
         private void wipe()
         {

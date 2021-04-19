@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="AlbumNS.Album">
+    <Position X="2.5" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIACAAAAAABAAAgAAAIAIAAAAAAAABDCE=</HashCode>
+      <FileName>App_Code\Album.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ConstantsNS.Constants">
+    <Position X="6.25" Y="0.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAEAAAAAAAAAAAAAAAQAYAAAAABgIAAAgAAAAAE=</HashCode>
+      <FileName>App_Code\Constants.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DBFNS.DBF">
+    <Position X="9" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAABQIAJQACAAEAMgAIAAAAAAQQAABAgAACQAIACAEg=</HashCode>
+      <FileName>App_Code\DBF.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ImageNS.Image">
+    <Position X="4.5" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>BIAAEAABAEAAIAAAAQAAAAAAAAAABAEAEAAABAAQCAA=</HashCode>
+      <FileName>App_Code\Image.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserNS.User">
+    <Position X="0.5" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAgAAAIACAAAAAAAggAiAAACAAAAQAACgIECAA=</HashCode>
+      <FileName>App_Code\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

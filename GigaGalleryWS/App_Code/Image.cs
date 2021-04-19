@@ -178,7 +178,10 @@ namespace ImageNS
         public Image(int id, int owner, int album, string name, string file_path) : this(id, owner, album, name, DateTime.Now, file_path) { }
         // Copy Constructor.
         public Image(Image other) : this(other.ImageId, other.ImageOwnerId, other.ImageAlbumId, other.ImageName, other.ImageCreationTime, other.ImageFilePath) { }
-
+        
+        /// <summary>
+        /// This function resets all the values of the class to known default values.
+        /// </summary>
         private void wipe()
         {
             this.image_id = -1;
