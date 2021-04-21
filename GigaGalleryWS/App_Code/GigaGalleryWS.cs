@@ -49,15 +49,21 @@ public class GigaGalleryWS : System.Web.Services.WebService
         return email.Length <= Constants.MAX_EMAIL_LENGTH;
     }
     [WebMethod]
-    public bool Signup(string name, string password, string email, DateTime birthday)
+    public Dictionary<string, string> Signup(string name, string password, string email, DateTime birthday)
     {
+        Dictionary<string, string> dictToRet = new Dictionary<string, string>();
         try
         {
             // id doesn't matter in the DBF function AddUser because database gives id automatically.
             User u = new User(1, name, password, email, birthday);
-            return DBF.AddUser(u);
+            bool dpfRes = DBF.AddUser(u);
+            dictToRet.Add("success", dpfRes.ToString());
         }
-        catch (Exception e) { throw e; }
+        catch (Exception e)
+        {
+            dictToRet.Add("exception", e.ToString());
+        }
+        return dictToRet;
     }
     [WebMethod]
     public User GetUserObj(string email)
