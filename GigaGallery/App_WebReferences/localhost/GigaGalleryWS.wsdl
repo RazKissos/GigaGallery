@@ -17,6 +17,16 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GetConnectionString">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetConnectionStringResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetConnectionStringResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="CheckPasswordLength">
         <s:complexType>
           <s:sequence>
@@ -136,6 +146,23 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GetAllUsers">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetAllUsersResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAllUsersResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
     </s:schema>
   </wsdl:types>
   <wsdl:message name="LoginSoapIn">
@@ -143,6 +170,12 @@
   </wsdl:message>
   <wsdl:message name="LoginSoapOut">
     <wsdl:part name="parameters" element="tns:LoginResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetConnectionStringSoapIn">
+    <wsdl:part name="parameters" element="tns:GetConnectionString" />
+  </wsdl:message>
+  <wsdl:message name="GetConnectionStringSoapOut">
+    <wsdl:part name="parameters" element="tns:GetConnectionStringResponse" />
   </wsdl:message>
   <wsdl:message name="CheckPasswordLengthSoapIn">
     <wsdl:part name="parameters" element="tns:CheckPasswordLength" />
@@ -186,10 +219,20 @@
   <wsdl:message name="AddImageSoapOut">
     <wsdl:part name="parameters" element="tns:AddImageResponse" />
   </wsdl:message>
+  <wsdl:message name="GetAllUsersSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAllUsers" />
+  </wsdl:message>
+  <wsdl:message name="GetAllUsersSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAllUsersResponse" />
+  </wsdl:message>
   <wsdl:portType name="GigaGalleryWSSoap">
     <wsdl:operation name="Login">
       <wsdl:input message="tns:LoginSoapIn" />
       <wsdl:output message="tns:LoginSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetConnectionString">
+      <wsdl:input message="tns:GetConnectionStringSoapIn" />
+      <wsdl:output message="tns:GetConnectionStringSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="CheckPasswordLength">
       <wsdl:input message="tns:CheckPasswordLengthSoapIn" />
@@ -219,11 +262,24 @@
       <wsdl:input message="tns:AddImageSoapIn" />
       <wsdl:output message="tns:AddImageSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetAllUsers">
+      <wsdl:input message="tns:GetAllUsersSoapIn" />
+      <wsdl:output message="tns:GetAllUsersSoapOut" />
+    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="GigaGalleryWSSoap" type="tns:GigaGalleryWSSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="Login">
       <soap:operation soapAction="http://gigagallery.net/Login" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConnectionString">
+      <soap:operation soapAction="http://gigagallery.net/GetConnectionString" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -294,11 +350,29 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetAllUsers">
+      <soap:operation soapAction="http://gigagallery.net/GetAllUsers" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="GigaGalleryWSSoap12" type="tns:GigaGalleryWSSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="Login">
       <soap12:operation soapAction="http://gigagallery.net/Login" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConnectionString">
+      <soap12:operation soapAction="http://gigagallery.net/GetConnectionString" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -362,6 +436,15 @@
     </wsdl:operation>
     <wsdl:operation name="AddImage">
       <soap12:operation soapAction="http://gigagallery.net/AddImage" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllUsers">
+      <soap12:operation soapAction="http://gigagallery.net/GetAllUsers" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

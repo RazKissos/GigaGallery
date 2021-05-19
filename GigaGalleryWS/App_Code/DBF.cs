@@ -233,6 +233,14 @@ namespace DBFNS
             }
             return false;
         }
+
+        public static DataTable GetUsersTable()
+        {
+            string sql = string.Format("select * from [users]");
+            DataTable dt = new DataTable();
+            dt = DBF.selectFromTable(sql);
+            return dt;
+        }
         #endregion
         #region Add
         public static bool AddUser(User u)
@@ -286,12 +294,16 @@ namespace DBFNS
         #endregion
 
         #region general operations
+        public static string GetConnectionString()
+        {
+            return @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + HttpContext.Current.Server.MapPath("App_Data/GigaGallery.accdb");
+        }
         public static OleDbConnection GenerateConnection()
         {
             // פעולה מקבלת שם קובץ של מסד נתונים ובונה אובייקט התחברות ופותחת ערוץ תקשורת 
             OleDbConnection obj = new OleDbConnection();
             // Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\user\GigaGallery\GigaGalleryWS\App_Data\GigaGallery.accdb
-            obj.ConnectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + HttpContext.Current.Server.MapPath("App_Data/GigaGallery.accdb");
+            obj.ConnectionString = GetConnectionString();
             obj.Open();
             return obj;
         }
@@ -332,6 +344,14 @@ namespace DBFNS
                 obj.Close();
             }
             return dt;
+        }
+
+        public static DataTable GetDBSchema()
+        {
+            OleDbConnection conobj = GenerateConnection();
+            DataTable schema = conobj.GetSchema("Columns");
+            conobj.Close();
+            return schema;
         }
         #endregion
     }

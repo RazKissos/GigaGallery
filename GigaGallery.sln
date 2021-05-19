@@ -21,7 +21,11 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "GigaGallery", "GigaGallery\
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "27006"
+		SlnRelativePath = "GigaGallery\"
 		DefaultWebSiteLanguage = "Visual C#"
+	EndProjectSection
+	ProjectSection(ProjectDependencies) = postProject
+		{91300708-CCA3-4BE2-89D8-4AF0D73CDF43} = {91300708-CCA3-4BE2-89D8-4AF0D73CDF43}
 	EndProjectSection
 EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "GigaGalleryWS", "GigaGalleryWS\", "{91300708-CCA3-4BE2-89D8-4AF0D73CDF43}"
@@ -42,6 +46,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "GigaGalleryWS", "GigaGaller
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "1242"
+		SlnRelativePath = "GigaGalleryWS\"
 		DefaultWebSiteLanguage = "Visual C#"
 	EndProjectSection
 EndProject

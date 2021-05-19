@@ -9,6 +9,8 @@ using UserNS;
 using ImageNS;
 using AlbumNS;
 using ConstantsNS;
+using System.Data;
+using System.Data.OleDb;
 
 /// <summary>
 /// Summary description for GigaGalleryWS
@@ -38,6 +40,20 @@ public class GigaGalleryWS : System.Web.Services.WebService
 
         return DBF.Login(email, password);
     }
+    //[WebMethod]
+    //public Dictionary<string, string[]> GetDBSchema()
+    //{
+    //    DataTable schema = DBF.GetDBSchema();
+    //    foreach (DataRow row in schema.Rows)
+    //        Console.WriteLine("TABLE:" + row.Field<string>("TABLE_NAME") + " COLUMN:" + row.Field<string>("COLUMN_NAME"));
+    //        //TODO: separate the DataTable into dictionary and return int.
+    //    return null;
+    //}
+    [WebMethod]
+    public string GetConnectionString()
+    {
+        return @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + HttpContext.Current.Server.MapPath("App_Data/GigaGallery.accdb");
+    }
     [WebMethod]
     public bool CheckPasswordLength(string password)
     {
@@ -49,21 +65,19 @@ public class GigaGalleryWS : System.Web.Services.WebService
         return email.Length <= Constants.MAX_EMAIL_LENGTH;
     }
     [WebMethod]
-    public Dictionary<string, string> Signup(string name, string password, string email, DateTime birthday)
+    public bool Signup(string name, string password, string email, DateTime birthday)
     {
-        Dictionary<string, string> dictToRet = new Dictionary<string, string>();
         try
         {
             // id doesn't matter in the DBF function AddUser because database gives id automatically.
             User u = new User(1, name, password, email, birthday);
             bool dpfRes = DBF.AddUser(u);
-            dictToRet.Add("success", dpfRes.ToString());
         }
-        catch (Exception e)
+        catch
         {
-            dictToRet.Add("exception", e.ToString());
+            return false;
         }
-        return dictToRet;
+        return true;
     }
     [WebMethod]
     public User GetUserObj(string email)
@@ -105,6 +119,14 @@ public class GigaGalleryWS : System.Web.Services.WebService
             return false;
         }
         catch (Exception e) { throw e; }
+    }
+    [WebMethod ]
+    public DataTable GetAllUsers()
+    {
+        DataTable dt = new DataTable();
+        dt = DBF.GetUsersTable();
+        dt.TableName = "usersDataTable";
+        return dt;
     }
     public GigaGalleryWS()
     {
