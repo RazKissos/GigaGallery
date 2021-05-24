@@ -21,6 +21,14 @@ using System.Data.OleDb;
 // [System.Web.Script.Services.ScriptService]
 public class GigaGalleryWS : System.Web.Services.WebService
 {
+    public bool CheckPasswordLength(string password)
+    {
+        return password.Length >= Constants.MIN_PASSWORD_LENGTH && password.Length <= Constants.MAX_PASSWORD_LENGTH;
+    }
+    public bool CheckEmailLength(string email)
+    {
+        return email.Length <= Constants.MAX_EMAIL_LENGTH;
+    }
     [WebMethod]
     public bool Login(string email, string password)
     {
@@ -54,23 +62,14 @@ public class GigaGalleryWS : System.Web.Services.WebService
     {
         return @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + HttpContext.Current.Server.MapPath("App_Data/GigaGallery.accdb");
     }
+    
     [WebMethod]
-    public bool CheckPasswordLength(string password)
-    {
-        return password.Length >= Constants.MIN_PASSWORD_LENGTH && password.Length <= Constants.MAX_PASSWORD_LENGTH;
-    }
-    [WebMethod]
-    public bool CheckEmailLength(string email)
-    {
-        return email.Length <= Constants.MAX_EMAIL_LENGTH;
-    }
-    [WebMethod]
-    public bool Signup(string name, string password, string email, DateTime birthday)
+    public bool Signup(string name, string email, string password, DateTime birthday)
     {
         try
         {
-            // id doesn't matter in the DBF function AddUser because database gives id automatically.
-            User u = new User(1, name, password, email, birthday);
+            // `id` doesn't matter in the DBF function AddUser because database gives id automatically.
+            User u = new User(1, name, email, password, birthday);
             bool dpfRes = DBF.AddUser(u);
         }
         catch
@@ -85,12 +84,12 @@ public class GigaGalleryWS : System.Web.Services.WebService
         return DBF.GetUserByEmail(email);
     }
     [WebMethod]
-    public bool AdminAddUser(string name, string password, string email, DateTime birthday, bool isadmin)
+    public bool AdminAddUser(string name, string email, string password, DateTime birthday, bool isadmin)
     {
         try
         {
-            // id doesn't matter in the DBF function AddUser because database gives id automatically.
-            User u = new User(1, name, password, email, birthday, 0, isadmin);
+            // `id` doesn't matter in the DBF function AddUser because database gives id automatically.
+            User u = new User(1, name, email, password, birthday, 0, isadmin);
             return DBF.AddUser(u);
         }
         catch (Exception e){ throw e; }

@@ -11,4 +11,13 @@ public partial class AdminLogin : System.Web.UI.Page
     {
 
     }
+    protected void forgotpasswordBtn_Click(object sender, EventArgs e)
+    {
+
+    }
+
+    protected void submitBtn_Click(object sender, EventArgs e)
+    {
+
+    }
 }

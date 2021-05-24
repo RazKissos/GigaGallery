@@ -31,7 +31,6 @@
 </head>
 <body>
     <form id="form1" runat="server">
-
         <div>
             <nav class="navbar navbar-expand-lg navbar-light">
                 <a class="navbar-brand" href="/HomePage.aspx">
@@ -46,11 +45,16 @@
                     <img src="Design/images/loginIcon.png" height="30px" width="30px" />
                     Log in
                 </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+                <a class="navbar-brand" href="/Gallery.aspx">
+                    <img src="Design/images/galleryIcon.png" height="30px" width="30px" />
+                    Your Gallery
+                </a>
+                <a class="navbar-brand" href="/ProfilePage.aspx">
+                    <img src="Design/images/blankProfilePic.png" height="30px" width="30px" />
+                    Profile
+                </a>
             </nav>
+            
         </div>
 
         <!-- Main content Placeholder-->

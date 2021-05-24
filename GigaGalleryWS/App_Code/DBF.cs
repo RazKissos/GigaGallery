@@ -251,7 +251,7 @@ namespace DBFNS
                 throw new Exception("Email is already in use!");
             }
 
-            string sql = string.Format("insert into users (user_name, user_password, user_email, user_birthday, user_album_count, is_admin) values('{0}', '{1}', '{2}', #{3}#, '{4}' ,'{5}')", u.UserName, u.UserPassword, u.UserEmail, u.UserBirthday, u.UserAlbumCount, u.IsAdmin);
+            string sql = string.Format("insert into users (user_name, user_password, user_email, user_birthday, user_album_count, is_admin) values('{0}', '{1}', '{2}', #{3}#, '{4}' ,{5})", u.UserName, u.UserPassword, u.UserEmail, u.UserBirthday, u.UserAlbumCount, u.IsAdmin);
             return DBF.ChangeTable(sql) == 1;
         }
         public static bool AddAlbum(Album a)
@@ -264,7 +264,7 @@ namespace DBFNS
                 {
                     if (al.AlbumOwnerId == a.AlbumOwnerId)
                     {
-                        // Code will stop if it reaces this if becuase we throw exception.
+                        // Code will stop if it reaces this becuase we throw exception.
                         throw new Exception("An Album with the same name already belongs to this user!");
                     }
                 }
@@ -283,7 +283,7 @@ namespace DBFNS
                 {
                     if (img.ImageAlbumId == i.ImageAlbumId)
                     {
-                        // Code will stop if it reaces this if becuase we throw exception.
+                        // Code will stop if it reaces this becuase we throw exception.
                         throw new Exception("An Image with the same name already exists in this album!");
                     }
                 }

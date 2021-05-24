@@ -9,6 +9,10 @@ public partial class UserMasterPage : System.Web.UI.MasterPage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        
+    }
+    protected void LoadProfilePic(object sender, EventArgs e)
+    {
+        
     }
 }

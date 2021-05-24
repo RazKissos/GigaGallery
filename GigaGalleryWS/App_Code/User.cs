@@ -78,7 +78,7 @@ namespace UserNS
                 if (value is string)
                     if (value.Length > 0)
                         if (value.Length <= Constants.MAX_EMAIL_LENGTH)
-                            if (value.IndexOf("@") != -1)
+                            if (value.Contains("@"))
                                 this.user_email = value;
                             else
                                 throw new Exception("Email string must contain a `@` sign!");
@@ -108,7 +108,7 @@ namespace UserNS
                     if (value.Length >= Constants.MIN_PASSWORD_LENGTH)
                     {
                         if (value.Length <= Constants.MAX_PASSWORD_LENGTH)
-                            this.user_email = value;
+                            this.user_password = value;
                         else
                             throw new Exception(string.Format("User Password cannot exceed the max password length of {0}!", Constants.MAX_PASSWORD_LENGTH));
                     }

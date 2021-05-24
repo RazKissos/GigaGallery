@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="isPasswordValid">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="isPasswordValidResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="isPasswordValidResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="passwordLengthInvalidMessage">
+        <s:complexType />
+      </s:element>
+      <s:element name="passwordLengthInvalidMessageResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="passwordLengthInvalidMessageResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="isEmailLengthValid">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="email" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="isEmailLengthValidResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="isEmailLengthValidResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="emailLengthInvalidMessage">
+        <s:complexType />
+      </s:element>
+      <s:element name="emailLengthInvalidMessageResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="emailLengthInvalidMessageResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="isUsernameValid">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="isUsernameValidResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="isUsernameValidResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="usernameLengthInvalidMessage">
+        <s:complexType />
+      </s:element>
+      <s:element name="usernameLengthInvalidMessageResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usernameLengthInvalidMessageResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="isAlbumNameValid">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="albumName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="isAlbumNameValidResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="isAlbumNameValidResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="isImageNameValid">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="imageName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="isImageNameValidResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="isImageNameValidResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="isPasswordValidSoapIn">
+    <wsdl:part name="parameters" element="tns:isPasswordValid" />
+  </wsdl:message>
+  <wsdl:message name="isPasswordValidSoapOut">
+    <wsdl:part name="parameters" element="tns:isPasswordValidResponse" />
+  </wsdl:message>
+  <wsdl:message name="passwordLengthInvalidMessageSoapIn">
+    <wsdl:part name="parameters" element="tns:passwordLengthInvalidMessage" />
+  </wsdl:message>
+  <wsdl:message name="passwordLengthInvalidMessageSoapOut">
+    <wsdl:part name="parameters" element="tns:passwordLengthInvalidMessageResponse" />
+  </wsdl:message>
+  <wsdl:message name="isEmailLengthValidSoapIn">
+    <wsdl:part name="parameters" element="tns:isEmailLengthValid" />
+  </wsdl:message>
+  <wsdl:message name="isEmailLengthValidSoapOut">
+    <wsdl:part name="parameters" element="tns:isEmailLengthValidResponse" />
+  </wsdl:message>
+  <wsdl:message name="emailLengthInvalidMessageSoapIn">
+    <wsdl:part name="parameters" element="tns:emailLengthInvalidMessage" />
+  </wsdl:message>
+  <wsdl:message name="emailLengthInvalidMessageSoapOut">
+    <wsdl:part name="parameters" element="tns:emailLengthInvalidMessageResponse" />
+  </wsdl:message>
+  <wsdl:message name="isUsernameValidSoapIn">
+    <wsdl:part name="parameters" element="tns:isUsernameValid" />
+  </wsdl:message>
+  <wsdl:message name="isUsernameValidSoapOut">
+    <wsdl:part name="parameters" element="tns:isUsernameValidResponse" />
+  </wsdl:message>
+  <wsdl:message name="usernameLengthInvalidMessageSoapIn">
+    <wsdl:part name="parameters" element="tns:usernameLengthInvalidMessage" />
+  </wsdl:message>
+  <wsdl:message name="usernameLengthInvalidMessageSoapOut">
+    <wsdl:part name="parameters" element="tns:usernameLengthInvalidMessageResponse" />
+  </wsdl:message>
+  <wsdl:message name="isAlbumNameValidSoapIn">
+    <wsdl:part name="parameters" element="tns:isAlbumNameValid" />
+  </wsdl:message>
+  <wsdl:message name="isAlbumNameValidSoapOut">
+    <wsdl:part name="parameters" element="tns:isAlbumNameValidResponse" />
+  </wsdl:message>
+  <wsdl:message name="isImageNameValidSoapIn">
+    <wsdl:part name="parameters" element="tns:isImageNameValid" />
+  </wsdl:message>
+  <wsdl:message name="isImageNameValidSoapOut">
+    <wsdl:part name="parameters" element="tns:isImageNameValidResponse" />
+  </wsdl:message>
+  <wsdl:portType name="UserValidationWSSoap">
+    <wsdl:operation name="isPasswordValid">
+      <wsdl:input message="tns:isPasswordValidSoapIn" />
+      <wsdl:output message="tns:isPasswordValidSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="passwordLengthInvalidMessage">
+      <wsdl:input message="tns:passwordLengthInvalidMessageSoapIn" />
+      <wsdl:output message="tns:passwordLengthInvalidMessageSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="isEmailLengthValid">
+      <wsdl:input message="tns:isEmailLengthValidSoapIn" />
+      <wsdl:output message="tns:isEmailLengthValidSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="emailLengthInvalidMessage">
+      <wsdl:input message="tns:emailLengthInvalidMessageSoapIn" />
+      <wsdl:output message="tns:emailLengthInvalidMessageSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="isUsernameValid">
+      <wsdl:input message="tns:isUsernameValidSoapIn" />
+      <wsdl:output message="tns:isUsernameValidSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="usernameLengthInvalidMessage">
+      <wsdl:input message="tns:usernameLengthInvalidMessageSoapIn" />
+      <wsdl:output message="tns:usernameLengthInvalidMessageSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="isAlbumNameValid">
+      <wsdl:input message="tns:isAlbumNameValidSoapIn" />
+      <wsdl:output message="tns:isAlbumNameValidSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="isImageNameValid">
+      <wsdl:input message="tns:isImageNameValidSoapIn" />
+      <wsdl:output message="tns:isImageNameValidSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="UserValidationWSSoap" type="tns:UserValidationWSSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="isPasswordValid">
+      <soap:operation soapAction="http://tempuri.org/isPasswordValid" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="passwordLengthInvalidMessage">
+      <soap:operation soapAction="http://tempuri.org/passwordLengthInvalidMessage" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="isEmailLengthValid">
+      <soap:operation soapAction="http://tempuri.org/isEmailLengthValid" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="emailLengthInvalidMessage">
+      <soap:operation soapAction="http://tempuri.org/emailLengthInvalidMessage" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="isUsernameValid">
+      <soap:operation soapAction="http://tempuri.org/isUsernameValid" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="usernameLengthInvalidMessage">
+      <soap:operation soapAction="http://tempuri.org/usernameLengthInvalidMessage" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="isAlbumNameValid">
+      <soap:operation soapAction="http://tempuri.org/isAlbumNameValid" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="isImageNameValid">
+      <soap:operation soapAction="http://tempuri.org/isImageNameValid" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="UserValidationWSSoap12" type="tns:UserValidationWSSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="isPasswordValid">
+      <soap12:operation soapAction="http://tempuri.org/isPasswordValid" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="passwordLengthInvalidMessage">
+      <soap12:operation soapAction="http://tempuri.org/passwordLengthInvalidMessage" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="isEmailLengthValid">
+      <soap12:operation soapAction="http://tempuri.org/isEmailLengthValid" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="emailLengthInvalidMessage">
+      <soap12:operation soapAction="http://tempuri.org/emailLengthInvalidMessage" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="isUsernameValid">
+      <soap12:operation soapAction="http://tempuri.org/isUsernameValid" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="usernameLengthInvalidMessage">
+      <soap12:operation soapAction="http://tempuri.org/usernameLengthInvalidMessage" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="isAlbumNameValid">
+      <soap12:operation soapAction="http://tempuri.org/isAlbumNameValid" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="isImageNameValid">
+      <soap12:operation soapAction="http://tempuri.org/isImageNameValid" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="UserValidationWS">
+    <wsdl:port name="UserValidationWSSoap" binding="tns:UserValidationWSSoap">
+      <soap:address location="http://localhost:1242/UserValidationWS.asmx" />
+    </wsdl:port>
+    <wsdl:port name="UserValidationWSSoap12" binding="tns:UserValidationWSSoap12">
+      <soap12:address location="http://localhost:1242/UserValidationWS.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
