@@ -56,6 +56,8 @@
                 </td>
                 <td class="td-style">
                     
+                    <asp:Button ID="logoutBtn" runat="server" OnClick="logoutBtn_Click" text="log out" />
+                    
                 </td>
             </tr>
 

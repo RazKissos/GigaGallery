@@ -43,7 +43,7 @@
                     <asp:TextBox ID="passwordTB" runat="server" placeholder="password" TextMode="Password"></asp:TextBox>
                 </td>
                 <td>
-                    <asp:CheckBox ID="showPasswordCB" runat="server" Text="Show Password" OnCheckedChanged="CheckedShowPassword"/>
+                    <asp:CheckBox ID="showPasswordCB" runat="server" Text="Show Password" OnCheckedChanged="showPasswordCB_CheckedChanged" AutoPostBack="true" Checked="false"/>
                 </td>
                 <td>
                     <asp:Label ID="requiredPasswordLabel" runat="server" Text="This Field is Required!" Visible="false" ForeColor="Red"></asp:Label>
@@ -85,6 +85,9 @@
             <tr>
                 <td>
                     <asp:Button ID="submitBtn" runat="server" Text="submit" onclick="submitBtnClick"/>
+                </td>
+                <td>
+                    <asp:Label ID="errorLabel" runat="server" Text="" Visible="false" ForeColor="Red"></asp:Label>
                 </td>
             </tr>
         </table>

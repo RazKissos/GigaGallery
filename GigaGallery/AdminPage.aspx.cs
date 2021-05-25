@@ -10,6 +10,18 @@ public partial class AdminPage : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        if(! IsPostBack)
+        {
+            if(Session["pUser"] == null)
+            {
+                Response.Redirect("Login.aspx");
+            }
+            else
+            {
+                User u = (User)Session["pUser"];
+
+            }
+        }
     }
 
     protected void addUserBtn_Click(object sender, EventArgs e)
@@ -62,6 +74,7 @@ public partial class AdminPage : System.Web.UI.Page
         {
             this.errorLabel.Text = "Error!";
             this.errorLabel.Visible = true;
+            return;
         }
 
         Response.Redirect(Page.Request.Url.ToString(), true);

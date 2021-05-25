@@ -13,25 +13,75 @@ public partial class SignUp : System.Web.UI.Page
 
     }
 
-    protected void CheckedShowPassword(object sender, EventArgs e)
-    {
-    }
-
     protected void submitBtnClick(object sender, EventArgs e)
     {
-        bool validEmail = this.emailTB.Text != "";
-        bool validUsername = this.usernameTB.Text != "";
-        bool validPassword =  this.passwordTB.Text != "";
-        bool validPasswordConfirm = this.passwordConfirmTB.Text != "";
-        bool validBirthday = this.birthdayTB.Text != "";
-        if (!(validEmail && validUsername && validPassword && validPasswordConfirm && validBirthday))
+        string username = this.usernameTB.Text;
+        string email = this.emailTB.Text;
+        string password = this.passwordTB.Text;
+        string confirmPassword = this.passwordConfirmTB.Text;
+        DateTime birthday = default(DateTime);
+
+        try
         {
-            modifyRequiredLabels(validEmail, validUsername, validPassword, validPasswordConfirm, validBirthday);
+            birthday = DateTime.Parse(this.birthdayTB.Text);
+        }
+        catch
+        {
+            this.birthdayErrorLabel.Text = "Invalid birthday!";
+            this.birthdayErrorLabel.Visible = true;
             return;
         }
 
-        localhost.GigaGalleryWS ws = new localhost.GigaGalleryWS();
-        bool trySignup = ws.Signup(usernameTB.Text, emailTB.Text, passwordTB.Text, DateTime.Parse(birthdayTB.Text));
+        // Validate Data:
+        localhost.UserValidationWS validationWS = new localhost.UserValidationWS();
+        if (!validationWS.isUsernameValid(username))
+        {
+            this.usernameErrorLabel.Text = validationWS.usernameLengthInvalidMessage();
+            this.usernameErrorLabel.Visible = true;
+            return;
+        }
+        if (!validationWS.isEmailLengthValid(email))
+        {
+            this.emailErrorLabel.Text = validationWS.emailLengthInvalidMessage();
+            this.emailErrorLabel.Visible = true;
+            return;
+        }
+        if (!validationWS.isPasswordValid(password))
+        {
+            this.passwordErrorLabel.Text = validationWS.passwordLengthInvalidMessage();
+            this.passwordErrorLabel.Visible = true;
+            return;
+        }
+        if (password != confirmPassword)
+        {
+            this.passwordErrorLabel.Text = "Passwords do not match!";
+            this.passwordErrorLabel.Visible = true;
+            return;
+        }
+
+        localhost.GigaGalleryWS dbWS = new localhost.GigaGalleryWS();
+        bool result = false;
+        try
+        {
+            result = dbWS.Signup(username, email, password, birthday);
+        }
+        catch
+        {
+            this.errorLabel.Text = "Error!";
+            this.errorLabel.Visible = true;
+            return;
+        }
+
+        if(result)
+        {
+            Response.Redirect("Login.aspx");
+        }
+        else
+        {
+            this.errorLabel.Text = "Error!";
+            this.errorLabel.Visible = true;
+            return;
+        }
     }
 
     void modifyRequiredLabels(bool email, bool username, bool password, bool confirmPassword, bool birthday)
@@ -56,5 +106,15 @@ public partial class SignUp : System.Web.UI.Page
             this.requiredBirthdayLabel.Visible = true;
         else
             this.requiredBirthdayLabel.Visible = false;
+    }
+
+    protected void showPasswordCB_CheckedChanged(object sender, EventArgs e)
+    {
+        if (this.showPasswordCB.Checked)
+            this.passwordTB.TextMode = TextBoxMode.SingleLine;
+        else
+        {
+            this.passwordTB.TextMode = TextBoxMode.Password;
+        }
     }
 }

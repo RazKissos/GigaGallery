@@ -66,6 +66,7 @@
           <s:element minOccurs="0" maxOccurs="1" name="UserPassword" type="s:string" />
           <s:element minOccurs="1" maxOccurs="1" name="UserBirthday" type="s:dateTime" />
           <s:element minOccurs="1" maxOccurs="1" name="UserAlbumCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsAdmin" type="s:boolean" />
         </s:sequence>
       </s:complexType>
       <s:element name="AdminAddUser">

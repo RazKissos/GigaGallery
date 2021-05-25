@@ -49,12 +49,10 @@
                     <img src="Design/images/galleryIcon.png" height="30px" width="30px" />
                     Your Gallery
                 </a>
-                <a class="navbar-brand" href="/ProfilePage.aspx">
+                <a class="ms-auto" href="/ProfilePage.aspx">
                     <img src="Design/images/blankProfilePic.png" height="30px" width="30px" />
-                    Profile
                 </a>
             </nav>
-            
         </div>
 
         <!-- Main content Placeholder-->

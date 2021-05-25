@@ -43,8 +43,12 @@ public partial class Login : System.Web.UI.Page
         {
             if (ws.Login(emailTB.Text, passwordTB.Text))
             {
-                Session["user"] = ws.GetUserObj(emailTB.Text);
-                ErrorLabel.Text = "Success";
+                localhost.User userObj = ws.GetUserObj(emailTB.Text);
+                Session["pUser"] = userObj;
+                if (userObj.IsAdmin)
+                    Response.Redirect("AdminPage.aspx");
+                else
+                    Response.Redirect("HomePage.aspx");
             }
             else
                 ErrorLabel.Text = "Login Failed! Email or Password are incorrect.";
@@ -53,7 +57,6 @@ public partial class Login : System.Web.UI.Page
         {
             ErrorLabel.Text = "Login Failed! Email or Password are incorrect.";
         }
-       
     }
     protected void forgotpasswordBtn_Click(object sender, EventArgs e)
     {

@@ -32,12 +32,10 @@
             </tr>
             <tr>
                 <td class="auto-style1">
-                
-                    <asp:Button ID="forgotpasswordBtn" runat="server" Text="Forgot Password?" Width="183px" OnClick="forgotpasswordBtn_Click"/>
-                
+                    <asp:Button ID="submitBtn" runat="server" Text="Submit" OnClick="submitBtn_Click" />
                 </td>
                 <td>
-                    <asp:Button ID="submitBtn" runat="server" Text="Submit" OnClick="submitBtn_Click" />
+                    <asp:Button ID="forgotpasswordBtn" runat="server" Text="Forgot Password?" Width="183px" OnClick="forgotpasswordBtn_Click"/>
                 </td>
             </tr>
             <tr>

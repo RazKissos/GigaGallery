@@ -159,7 +159,7 @@ namespace UserNS
             }
         }
         protected bool is_admin = false;
-        public bool IsAdmin { get { return this.is_admin; } }
+        public bool IsAdmin { get { return this.is_admin; } set { this.is_admin = this.is_admin; } }
         public User()
         {
             this.wipe();

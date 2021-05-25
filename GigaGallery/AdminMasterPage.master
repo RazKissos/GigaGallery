@@ -36,15 +36,15 @@
 
         <div>
             <nav class="navbar navbar-expand-lg navbar-light">
-                <a class="navbar-brand" href="/HomePage.aspx">
+                <a class="navbar-brand" href="/AdminHomePage.aspx">
                     <img src="Design/images/homeIcon.png" height="30px" width="30px"/>
                     Giga Gallery
                 </a>
-                <a class="navbar-brand" href="/AdminSignUp.aspx">
+                <a class="navbar-brand" href="/SignUp.aspx">
                     <img src="Design/images/signUpIcon.png" height="30px" width="30px" />
                     Sign up
                 </a>
-                <a class="navbar-brand" href="/AdminLogin.aspx">
+                <a class="navbar-brand" href="/Login.aspx">
                     <img src="Design/images/loginIcon.png" height="30px" width="30px" />
                     Log in
                 </a>
@@ -52,10 +52,13 @@
                     <img src="Design/Images/adminIcon.png" height="30px" width="30px"/>
                     Admin 
                 </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+                <a class="navbar-brand" href="/AdminGallery.aspx">
+                    <img src="Design/images/galleryIcon.png" height="30px" width="30px" />
+                    Your Gallery
+                </a>
+                <a class="ms-auto" href="/AdminProfile.aspx">
+                    <img src="Design/images/blankProfilePic.png" height="30px" width="30px" />
+                </a>
             </nav>
         </div>
         <!-- Main content Placeholder-->
