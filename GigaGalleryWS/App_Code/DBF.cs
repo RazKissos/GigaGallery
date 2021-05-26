@@ -233,14 +233,6 @@ namespace DBFNS
             }
             return false;
         }
-
-        public static DataTable GetUsersTable()
-        {
-            string sql = string.Format("select * from [users]");
-            DataTable dt = new DataTable();
-            dt = DBF.selectFromTable(sql);
-            return dt;
-        }
         #endregion
         #region Add
         public static bool AddUser(User u)
@@ -337,7 +329,6 @@ namespace DBFNS
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
             }
             finally
             {
@@ -346,12 +337,27 @@ namespace DBFNS
             return dt;
         }
 
-        public static DataTable GetDBSchema()
+        public static DataTable GetTableSchema(string tableName)
         {
             OleDbConnection conobj = GenerateConnection();
-            DataTable schema = conobj.GetSchema("Columns");
+            DataTable tables = conobj.GetSchema("Tables");
+            DataTable schema = null;
+            bool success = false;
+            foreach (DataRow tableRow in tables.Rows)
+            {
+                string name = tableRow["TABLE_NAME"].ToString().ToLower();
+                if (!success && tableName.ToLower() == tableRow["TABLE_NAME"].ToString().ToLower())
+                {
+                    // Table exists!
+                    schema = conobj.GetSchema("Columns", new[] { null, null, tableName.ToLower() });
+                    conobj.Close();
+                    success = true;
+                }
+                if(success)
+                    return schema; 
+            }
             conobj.Close();
-            return schema;
+            return null;
         }
         #endregion
     }

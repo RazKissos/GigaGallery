@@ -19,6 +19,7 @@ using System.Data.OleDb;
 [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
 // To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line. 
 // [System.Web.Script.Services.ScriptService]
+
 public class GigaGalleryWS : System.Web.Services.WebService
 {
     public bool CheckPasswordLength(string password)
@@ -48,15 +49,33 @@ public class GigaGalleryWS : System.Web.Services.WebService
 
         return DBF.Login(email, password);
     }
-    //[WebMethod]
-    //public Dictionary<string, string[]> GetDBSchema()
-    //{
-    //    DataTable schema = DBF.GetDBSchema();
-    //    foreach (DataRow row in schema.Rows)
-    //        Console.WriteLine("TABLE:" + row.Field<string>("TABLE_NAME") + " COLUMN:" + row.Field<string>("COLUMN_NAME"));
-    //        //TODO: separate the DataTable into dictionary and return int.
-    //    return null;
-    //}
+    [WebMethod]
+    public DataTable GetTableSchema(string tableName)
+    {
+        DataTable schema = DBF.GetTableSchema(tableName);
+
+        if(schema != null)
+            schema.TableName = "dbSchema";
+
+        return schema;
+    }
+    [WebMethod]
+    public DataTable GenerateSelectQueryAndFetchData(string tableName, string paramField, string searchParam, ParamAttrs attrs)
+    {
+        string paramWithMods = "";
+
+        if (attrs.isBool)
+            paramWithMods = searchParam;
+        else if (attrs.isDate)
+            paramWithMods = string.Format("#{0}#", searchParam);
+        else if (attrs.isString)
+            paramWithMods = string.Format("\"{0}\"", searchParam);
+
+        string query = string.Format("select * from [{0}] where {1}={2}", tableName, paramField, paramWithMods);
+        DataTable res = DBF.selectFromTable(query);
+        res.TableName = "selectionResults";
+        return res;
+    }
     [WebMethod]
     public string GetConnectionString()
     {
@@ -120,11 +139,12 @@ public class GigaGalleryWS : System.Web.Services.WebService
         catch (Exception e) { throw e; }
     }
     [WebMethod ]
-    public DataTable GetAllUsers()
+    public DataTable SelectEntireTable(string tableName)
     {
         DataTable dt = new DataTable();
-        dt = DBF.GetUsersTable();
-        dt.TableName = "usersDataTable";
+        string sql = string.Format("select * from [{0}]", tableName.ToLower());
+        dt = DBF.selectFromTable(sql);
+        dt.TableName = string.Format("{0}DataTable", tableName);
         return dt;
     }
     public GigaGalleryWS()

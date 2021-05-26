@@ -49,8 +49,8 @@
                     Log in
                 </a>
                 <a class="navbar-brand" href="/AdminPage.aspx">
-                    <img src="Design/Images/adminIcon.png" height="30px" width="30px"/>
-                    Admin 
+                    <img src="Design/images/adminIcon.png" height="30px" width="30px" />
+                    Admin Page
                 </a>
                 <a class="navbar-brand" href="/AdminGallery.aspx">
                     <img src="Design/images/galleryIcon.png" height="30px" width="30px" />

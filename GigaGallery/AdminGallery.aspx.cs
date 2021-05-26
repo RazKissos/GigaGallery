@@ -20,6 +20,10 @@ public partial class AdminGallery : System.Web.UI.Page
             {
                 // Session is active!
                 User u = (User)Session["pUser"];
+                if (!u.IsAdmin)
+                {
+                    Response.Redirect("HomePage.aspx");
+                }
             }
         }
     }

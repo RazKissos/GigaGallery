@@ -20,6 +20,10 @@ public partial class AdminProfile : System.Web.UI.Page
             {
                 // Session is active!
                 User u = (User)Session["pUser"];
+                if (!u.IsAdmin)
+                {
+                    Response.Redirect("HomePage.aspx");
+                }
                 this.UsernameLabel.Text = u.UserName.ToString();
                 this.EmailLabel.Text = u.UserEmail.ToString();
             }

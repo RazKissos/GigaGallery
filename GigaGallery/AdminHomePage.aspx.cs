@@ -20,6 +20,10 @@ public partial class AdminHomePage : System.Web.UI.Page
             {
                 // Session is active!
                 User u = (User)Session["pUser"];
+                if (!u.IsAdmin)
+                {
+                    Response.Redirect("HomePage.aspx");
+                }
             }
         }
     }

@@ -66,26 +66,19 @@
                     <label>Table to search in: </label>
                 </td>
                 <td class="tdStyle">
-                    <select id="TableSelector" class="auto-style1" >
-                        <option>Users</option>
-                        <option>Albums</option>
-                        <option>Images</option>
-                    </select>
+                    <asp:DropDownList ID="TableSelector" runat="server" OnSelectedIndexChanged="updateDropDownParams" AutoPostBack="true">
+                        <asp:ListItem>Users</asp:ListItem>
+                        <asp:ListItem>Albums</asp:ListItem>
+                        <asp:ListItem>Images</asp:ListItem>
+                    </asp:DropDownList>
                 </td>
             <tr>
                 <td class="tdStyle">
                     <label>Value to search by: </label>
                 </td>
                 <td class="tdStyle">
-                    <select id="SerchBySelector" class="auto-style1" >
-                        <option>id</option>
-                        <option>username</option>
-                        <option>date of birth</option>
-                        <option>email</option>
-                        <option>is admin</option>
-                        <option>password</option>
-                        <option>album count</option>
-                    </select>
+                    <asp:DropDownList ID="SerchBySelector" runat="server">
+                    </asp:DropDownList>
                 </td>
             </tr>
             <tr>

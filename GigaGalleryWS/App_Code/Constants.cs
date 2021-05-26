@@ -8,6 +8,18 @@ using System.Web;
 /// </summary>
 namespace ConstantsNS
 {
+    public struct ParamAttrs
+    {
+        public bool isString;
+        public bool isDate;
+        public bool isBool;
+        public ParamAttrs(bool isString, bool isDate, bool isBool)
+        {
+            this.isString = isString;
+            this.isBool = isBool;
+            this.isDate = isDate;
+        }
+    }
     public static class Constants
     {
         #region PASSWORD DATA
