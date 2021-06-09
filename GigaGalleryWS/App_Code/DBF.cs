@@ -19,7 +19,7 @@ namespace DBFNS
         #region Update
         public static bool UpdateUser(User u)
         {
-            if (GetUserById(u.UserId) != null)
+            if (u != null && GetUserById (u.UserId) != null)
             {
                 string sql = string.Format("update [users] set user_name = '{0}', user_password = '{1}', user_email = '{2}', user_album_count = '{3}', user_birthday = #{4}#, is_admin = '{5}' where user_id = {6}", u.UserName, u.UserPassword, u.UserEmail, u.UserAlbumCount, u.UserAlbumCount, u.UserBirthday, u.IsAdmin, u.UserId);
                 return ChangeTable(sql) == 1;
@@ -28,7 +28,7 @@ namespace DBFNS
         }
         public static bool UpdateAlbum(Album al)
         {
-            if (GetAlbumById(al.AlbumId) != null)
+            if (al != null && GetAlbumById (al.AlbumId) != null)
             {
                 string sql = string.Format("update [albums] set album_name = '{0}', album_owner_id = {1}, album_creation_time = #{2}#, album_size = '{3}' where album_id = {4}", al.AlbumName, al.AlbumOwnerId, al.AlbumCreationTime, al.AlbumSize, al.AlbumId);
                 return ChangeTable(sql) == 1;
@@ -37,7 +37,7 @@ namespace DBFNS
         }
         public static bool UpdateImage(Img img)
         {
-            if (GetImageById(img.ImageId) != null)
+            if (img != null && GetImageById(img.ImageId) != null)
             {
                 string sql = string.Format("update [images] set image_album_id = {0}, image_owner_id = {1}, image_name = '{2}', image_creation_time = #{3}#, image_file_path = '{4}' where image_id = {5}", img.ImageAlbumId, img.ImageOwnerId, img.ImageName, img.ImageCreationTime, img.ImageFilePath, img.ImageId);
                 return ChangeTable(sql) == 1;
@@ -48,7 +48,7 @@ namespace DBFNS
         #region Delete
         public static bool DeleteUser(User u)
         {
-            if (GetUserById(u.UserId) != null)
+            if (u != null && GetUserById(u.UserId) != null)
             {
                 string sql = string.Format("delete * from [users] where user_id = {0}", u.UserId);
                 return ChangeTable(sql) == 1;
@@ -57,7 +57,7 @@ namespace DBFNS
         }
         public static bool DeleteAlbum(Album al)
         {
-            if (GetAlbumById(al.AlbumId) != null)
+            if (al != null && GetAlbumById(al.AlbumId) != null)
             {
                 string sql = string.Format("delete * from [albums] where album_id = {0}", al.AlbumId);
                 return ChangeTable(sql) == 1;
@@ -66,7 +66,7 @@ namespace DBFNS
         }
         public static bool DeleteImage(Img img)
         {
-            if (GetImageById(img.ImageId) != null)
+            if (img != null && GetImageById(img.ImageId) != null)
             {
                 string sql = string.Format("delete * from [images] where image_id = {0}", img.ImageId);
                 return ChangeTable(sql) == 1;
