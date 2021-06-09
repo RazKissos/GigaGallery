@@ -160,7 +160,7 @@
             <s:element minOccurs="1" maxOccurs="1" name="owner_id" type="s:int" />
             <s:element minOccurs="1" maxOccurs="1" name="album_id" type="s:int" />
             <s:element minOccurs="0" maxOccurs="1" name="name" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="bytes" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="image_file_path" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -189,6 +189,166 @@
                 </s:sequence>
               </s:complexType>
             </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAlbumIdByUserIdAndAlbumName">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ownerId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="albumName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAlbumIdByUserIdAndAlbumNameResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetAlbumIdByUserIdAndAlbumNameResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserAlbums">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="userId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserAlbumsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetUserAlbumsResult" type="tns:ArrayOfAlbum" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfAlbum">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Album" nillable="true" type="tns:Album" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Album">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="AlbumId" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="AlbumOwnerId" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="AlbumName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="AlbumCreationTime" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="AlbumSize" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetAlbumImages">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="albumId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAlbumImagesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAlbumImagesResult" type="tns:ArrayOfImg" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfImg">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Img" nillable="true" type="tns:Img" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Img">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ImageId" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="ImageOwnerId" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="ImageAlbumId" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ImageName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ImageCreationTime" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="ImageFilePath" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="UpdateAlbum">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="owner_id" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="name" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="creation_time" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="album_size" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateAlbumResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UpdateAlbumResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateImage">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="updatedImage" type="tns:Img" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateImageResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UpdateImageResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteAlbum">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="album" type="tns:Album" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteAlbumResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="DeleteAlbumResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteImage">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="image" type="tns:Img" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteImageResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="DeleteImageResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteAlbumImages">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="album" type="tns:Album" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteAlbumImagesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="DeleteAlbumImagesResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAlbumById">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="albumId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAlbumByIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAlbumByIdResult" type="tns:Album" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -254,6 +414,60 @@
   <wsdl:message name="SelectEntireTableSoapOut">
     <wsdl:part name="parameters" element="tns:SelectEntireTableResponse" />
   </wsdl:message>
+  <wsdl:message name="GetAlbumIdByUserIdAndAlbumNameSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAlbumIdByUserIdAndAlbumName" />
+  </wsdl:message>
+  <wsdl:message name="GetAlbumIdByUserIdAndAlbumNameSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAlbumIdByUserIdAndAlbumNameResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetUserAlbumsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetUserAlbums" />
+  </wsdl:message>
+  <wsdl:message name="GetUserAlbumsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetUserAlbumsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAlbumImagesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAlbumImages" />
+  </wsdl:message>
+  <wsdl:message name="GetAlbumImagesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAlbumImagesResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateAlbumSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateAlbum" />
+  </wsdl:message>
+  <wsdl:message name="UpdateAlbumSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateAlbumResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateImageSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateImage" />
+  </wsdl:message>
+  <wsdl:message name="UpdateImageSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateImageResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteAlbumSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteAlbum" />
+  </wsdl:message>
+  <wsdl:message name="DeleteAlbumSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteAlbumResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteImageSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteImage" />
+  </wsdl:message>
+  <wsdl:message name="DeleteImageSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteImageResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteAlbumImagesSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteAlbumImages" />
+  </wsdl:message>
+  <wsdl:message name="DeleteAlbumImagesSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteAlbumImagesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAlbumByIdSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAlbumById" />
+  </wsdl:message>
+  <wsdl:message name="GetAlbumByIdSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAlbumByIdResponse" />
+  </wsdl:message>
   <wsdl:portType name="GigaGalleryWSSoap">
     <wsdl:operation name="Login">
       <wsdl:input message="tns:LoginSoapIn" />
@@ -294,6 +508,42 @@
     <wsdl:operation name="SelectEntireTable">
       <wsdl:input message="tns:SelectEntireTableSoapIn" />
       <wsdl:output message="tns:SelectEntireTableSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAlbumIdByUserIdAndAlbumName">
+      <wsdl:input message="tns:GetAlbumIdByUserIdAndAlbumNameSoapIn" />
+      <wsdl:output message="tns:GetAlbumIdByUserIdAndAlbumNameSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserAlbums">
+      <wsdl:input message="tns:GetUserAlbumsSoapIn" />
+      <wsdl:output message="tns:GetUserAlbumsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAlbumImages">
+      <wsdl:input message="tns:GetAlbumImagesSoapIn" />
+      <wsdl:output message="tns:GetAlbumImagesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateAlbum">
+      <wsdl:input message="tns:UpdateAlbumSoapIn" />
+      <wsdl:output message="tns:UpdateAlbumSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateImage">
+      <wsdl:input message="tns:UpdateImageSoapIn" />
+      <wsdl:output message="tns:UpdateImageSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteAlbum">
+      <wsdl:input message="tns:DeleteAlbumSoapIn" />
+      <wsdl:output message="tns:DeleteAlbumSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteImage">
+      <wsdl:input message="tns:DeleteImageSoapIn" />
+      <wsdl:output message="tns:DeleteImageSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteAlbumImages">
+      <wsdl:input message="tns:DeleteAlbumImagesSoapIn" />
+      <wsdl:output message="tns:DeleteAlbumImagesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAlbumById">
+      <wsdl:input message="tns:GetAlbumByIdSoapIn" />
+      <wsdl:output message="tns:GetAlbumByIdSoapOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="GigaGalleryWSSoap" type="tns:GigaGalleryWSSoap">
@@ -388,6 +638,87 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetAlbumIdByUserIdAndAlbumName">
+      <soap:operation soapAction="http://gigagallery.net/GetAlbumIdByUserIdAndAlbumName" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserAlbums">
+      <soap:operation soapAction="http://gigagallery.net/GetUserAlbums" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAlbumImages">
+      <soap:operation soapAction="http://gigagallery.net/GetAlbumImages" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateAlbum">
+      <soap:operation soapAction="http://gigagallery.net/UpdateAlbum" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateImage">
+      <soap:operation soapAction="http://gigagallery.net/UpdateImage" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteAlbum">
+      <soap:operation soapAction="http://gigagallery.net/DeleteAlbum" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteImage">
+      <soap:operation soapAction="http://gigagallery.net/DeleteImage" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteAlbumImages">
+      <soap:operation soapAction="http://gigagallery.net/DeleteAlbumImages" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAlbumById">
+      <soap:operation soapAction="http://gigagallery.net/GetAlbumById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="GigaGalleryWSSoap12" type="tns:GigaGalleryWSSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
@@ -474,6 +805,87 @@
     </wsdl:operation>
     <wsdl:operation name="SelectEntireTable">
       <soap12:operation soapAction="http://gigagallery.net/SelectEntireTable" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAlbumIdByUserIdAndAlbumName">
+      <soap12:operation soapAction="http://gigagallery.net/GetAlbumIdByUserIdAndAlbumName" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserAlbums">
+      <soap12:operation soapAction="http://gigagallery.net/GetUserAlbums" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAlbumImages">
+      <soap12:operation soapAction="http://gigagallery.net/GetAlbumImages" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateAlbum">
+      <soap12:operation soapAction="http://gigagallery.net/UpdateAlbum" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateImage">
+      <soap12:operation soapAction="http://gigagallery.net/UpdateImage" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteAlbum">
+      <soap12:operation soapAction="http://gigagallery.net/DeleteAlbum" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteImage">
+      <soap12:operation soapAction="http://gigagallery.net/DeleteImage" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteAlbumImages">
+      <soap12:operation soapAction="http://gigagallery.net/DeleteAlbumImages" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAlbumById">
+      <soap12:operation soapAction="http://gigagallery.net/GetAlbumById" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

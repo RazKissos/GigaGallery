@@ -27,6 +27,7 @@ public partial class AdminPage : System.Web.UI.Page
                 }
                 // User is admin.
 
+                this.errorLabel.Visible = false;
                 this.updateDropDownParams(sender, e);
             }
         }
@@ -89,50 +90,56 @@ public partial class AdminPage : System.Web.UI.Page
     }
     protected void updateDropDownParams(object sender, EventArgs e)
     {
+        this.errorLabel.Visible = false;
         string tableName = this.TableSelector.Text;
         localhost.GigaGalleryWS ws = new localhost.GigaGalleryWS();
 
-        DataTable schema = ws.GetTableSchema(tableName);
-        if(schema == null)
-        {
-            this.SerchBySelector.Items.Insert(0, "Error");
-            return;
-        }
-
         this.SerchBySelector.Items.Clear();
 
-        foreach(DataRow dr in schema.Rows)
+        DataTable schema = ws.GetTableSchema(tableName);
+        if(schema != null)
         {
-            this.SerchBySelector.Items.Insert(0, dr["COLUMN_NAME"].ToString());
+            foreach (DataRow dr in schema.Rows)
+            {
+                this.SerchBySelector.Items.Insert(0, dr["COLUMN_NAME"].ToString());
+            }
+        }
+        else
+        {
+            this.errorLabel.Text = "Error!";
+            this.errorLabel.Visible = true;
         }
     }
     protected void searchDataBtn_Click(object sender, EventArgs e)
     {
+        this.errorLabel.Visible = false;
         string tableName = this.TableSelector.Text;
         string searchParam = this.SerchBySelector.Text;
+        string valueToSearch = this.SearchBarTB.Text;
         localhost.GigaGalleryWS ws = new localhost.GigaGalleryWS();
         DataTable dt = ws.SelectEntireTable(tableName);
+        DataTable searchResults = new DataTable("searchResultsTable");
 
-        Dictionary<string, Type> colTypes = new Dictionary<string, Type>();
-        foreach(DataColumn dc in dt.Columns)
+        if (dt.Columns.Contains(searchParam))
         {
-            string type = dc.DataType.Name;
-            // Finish fetching of specific table with correct types.
+            foreach(DataRow dr in dt.Rows)
+            {
+                if (dr[searchParam].ToString().ToLower() == valueToSearch.ToLower().Trim())
+                    searchResults.ImportRow(dr);
+            }
+
+            // Update grid view and make visible.
+            if (searchResults.Rows.Count > 0)
+            {
+                this.searchResultsDL.DataSource = searchResults;
+                this.searchResultsDL.DataBind();
+                // Debug gridview not displaying data.
+            }
+            else
+            {
+                this.errorLabel.Text = "Search did not yield any results!";
+                this.errorLabel.Visible = true;
+            }
         }
-    }
-
-    protected void UsersGridView_RowDeleting(object sender, GridViewDeleteEventArgs e)
-    {
-
-    }
-
-    protected void UsersGridView_SelectedIndexChanging(object sender, GridViewSelectEventArgs e)
-    {
-
-    }
-
-    protected void Users_Selecting(object sender, SqlDataSourceSelectingEventArgs e)
-    {
-
     }
 }

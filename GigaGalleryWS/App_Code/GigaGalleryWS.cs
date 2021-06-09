@@ -6,8 +6,8 @@ using System.Web.Services;
 using System.IO;
 using DBFNS;
 using UserNS;
-using ImageNS;
 using AlbumNS;
+using ImgNS;
 using ConstantsNS;
 using System.Data;
 using System.Data.OleDb;
@@ -125,20 +125,16 @@ public class GigaGalleryWS : System.Web.Services.WebService
         catch(Exception e) { throw e; }
     }
     [WebMethod]
-    public bool AddImage(int owner_id, int album_id, string name, byte[] bytes)
+    public bool AddImage(int owner_id, int album_id, string name, string image_file_path)
     {
         try
         {
-            // TODO: Compute file path and save bytes as image.
-            // Image id doesn't matter since it is not considered in the AddImage function in DBF.
-            //string file_path = ""
-            //Image img = new Image(1, owner_id, album_id, name);
-            //return DBF.AddAlbum(al);
-            return false;
+            Img img = new Img(1, owner_id, album_id, name, image_file_path);
+            return DBF.AddImage(img);
         }
         catch (Exception e) { throw e; }
     }
-    [WebMethod ]
+    [WebMethod]
     public DataTable SelectEntireTable(string tableName)
     {
         DataTable dt = new DataTable();
@@ -146,6 +142,62 @@ public class GigaGalleryWS : System.Web.Services.WebService
         dt = DBF.selectFromTable(sql);
         dt.TableName = string.Format("{0}DataTable", tableName);
         return dt;
+    }
+    [WebMethod]
+    public int GetAlbumIdByUserIdAndAlbumName(int ownerId, string albumName)
+    {
+        List<Album> albumList = DBF.GetAlbumsByName(albumName);
+        if (albumList == null)
+            return -1;
+        foreach(Album al in albumList)
+        {
+            if (al.AlbumOwnerId == ownerId)
+                return al.AlbumId;
+        }
+        return -1;
+    }
+    [WebMethod]
+    public List<Album> GetUserAlbums(int userId)
+    {
+        return DBF.GetUserAlbumsById(userId);
+    }
+    [WebMethod]
+    public List<Img> GetAlbumImages(int albumId)
+    {
+        return DBF.GetAlbumImagesById(albumId);
+    }
+    [WebMethod]
+    public bool UpdateAlbum(int id, int owner_id, string name, DateTime creation_time, int album_size)
+    {
+        //int id, int owner_id, string name, DateTime creation_time, int album_size
+        Album album = new Album(id, owner_id, name, creation_time, album_size);
+        return DBF.UpdateAlbum(album);
+    }
+    [WebMethod]
+    public bool UpdateImage(Img updatedImage)
+    {
+        // int id, int owner_id, int album_id, string name, DateTime creation_time, string file_path // new Img(id, owner_id, album_id, name, creation_time, file_path
+        return DBF.UpdateImage(updatedImage);
+    }
+    [WebMethod]
+    public bool DeleteAlbum(Album album)
+    {
+        return DBF.DeleteAlbum(album);
+    }
+    [WebMethod]
+    public bool DeleteImage(Img image)
+    {
+        return DBF.DeleteImage(image);
+    }
+    [WebMethod]
+    public bool DeleteAlbumImages(Album album)
+    {
+        return DBF.DeleteImagesFromAlbum(album.AlbumId);
+    }
+    [WebMethod]
+    public Album GetAlbumById(int albumId)
+    {
+        return DBF.GetAlbumById(albumId);
     }
     public GigaGalleryWS()
     {

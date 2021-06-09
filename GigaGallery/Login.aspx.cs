@@ -45,6 +45,7 @@ public partial class Login : System.Web.UI.Page
             {
                 localhost.User userObj = ws.GetUserObj(emailTB.Text);
                 Session["pUser"] = userObj;
+                Session["pUserId"] = userObj.UserId;
                 if (userObj.IsAdmin)
                     Response.Redirect("AdminPage.aspx");
                 else

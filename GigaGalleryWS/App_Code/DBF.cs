@@ -7,7 +7,7 @@ using System.Data.OleDb;
 using ConstantsNS;
 using UserNS;
 using AlbumNS;
-using ImageNS;
+using ImgNS;
 
 /// <summary>
 /// Summary description for DBF
@@ -21,7 +21,7 @@ namespace DBFNS
         {
             if (GetUserById(u.UserId) != null)
             {
-                string sql = string.Format("update users user_name = '{0}' user_password = '{1}' user_email = '{2}' user_album_count = '{3}' user_birthday = #{4}# is_admin = '{5}' where user_id = '{6}'", u.UserName, u.UserPassword, u.UserEmail, u.UserAlbumCount, u.UserAlbumCount, u.UserBirthday, u.IsAdmin, u.UserId);
+                string sql = string.Format("update [users] set user_name = '{0}', user_password = '{1}', user_email = '{2}', user_album_count = '{3}', user_birthday = #{4}#, is_admin = '{5}' where user_id = {6}", u.UserName, u.UserPassword, u.UserEmail, u.UserAlbumCount, u.UserAlbumCount, u.UserBirthday, u.IsAdmin, u.UserId);
                 return ChangeTable(sql) == 1;
             }
             return false;
@@ -30,16 +30,16 @@ namespace DBFNS
         {
             if (GetAlbumById(al.AlbumId) != null)
             {
-                string sql = string.Format("update albums album_name = '{0}' album_owner_id = '{1}' album_creation_time = #{2}# album_size = '{3}' where album_id = '{4}'", al.AlbumName, al.AlbumOwnerId, al.AlbumCreationTime, al.AlbumSize, al.AlbumId);
+                string sql = string.Format("update [albums] set album_name = '{0}', album_owner_id = {1}, album_creation_time = #{2}#, album_size = '{3}' where album_id = {4}", al.AlbumName, al.AlbumOwnerId, al.AlbumCreationTime, al.AlbumSize, al.AlbumId);
                 return ChangeTable(sql) == 1;
             }
             return false;
         }
-        public static bool UpdateImage(Image img)
+        public static bool UpdateImage(Img img)
         {
             if (GetImageById(img.ImageId) != null)
             {
-                string sql = string.Format("update images image_album_id = '{0}' image_owner_id = '{1}' image_name = '{2}' image_creation_time = #{3}# image_file_path = '{4}' where image_id = '{5}'", img.ImageAlbumId, img.ImageOwnerId, img.ImageName, img.ImageCreationTime, img.ImageFilePath, img.ImageId);
+                string sql = string.Format("update [images] set image_album_id = {0}, image_owner_id = {1}, image_name = '{2}', image_creation_time = #{3}#, image_file_path = '{4}' where image_id = {5}", img.ImageAlbumId, img.ImageOwnerId, img.ImageName, img.ImageCreationTime, img.ImageFilePath, img.ImageId);
                 return ChangeTable(sql) == 1;
             }
             return false;
@@ -50,7 +50,7 @@ namespace DBFNS
         {
             if (GetUserById(u.UserId) != null)
             {
-                string sql = string.Format("delete from users where user_id = '{0}'", u.UserId);
+                string sql = string.Format("delete * from [users] where user_id = {0}", u.UserId);
                 return ChangeTable(sql) == 1;
             }
             return false;
@@ -59,16 +59,25 @@ namespace DBFNS
         {
             if (GetAlbumById(al.AlbumId) != null)
             {
-                string sql = string.Format("delete from albums where album_id = '{0}'", al.AlbumId);
+                string sql = string.Format("delete * from [albums] where album_id = {0}", al.AlbumId);
                 return ChangeTable(sql) == 1;
             }
             return false;
         }
-        public static bool DeleteImage(Image img)
+        public static bool DeleteImage(Img img)
         {
             if (GetImageById(img.ImageId) != null)
             {
-                string sql = string.Format("delete from images where image_id = '{0}'", img.ImageId);
+                string sql = string.Format("delete * from [images] where image_id = {0}", img.ImageId);
+                return ChangeTable(sql) == 1;
+            }
+            return false;
+        }
+        public static bool DeleteImagesFromAlbum(int AlbumId)
+        {
+            if (GetAlbumById(AlbumId) != null)
+            {
+                string sql = string.Format("delete * from [images] where image_album_id = {0}", AlbumId);
                 return ChangeTable(sql) == 1;
             }
             return false;
@@ -77,7 +86,7 @@ namespace DBFNS
         #region Select
         public static User GetUserById(int user_id)
         {
-            string sql = string.Format("select * from users where user_id='{0}' ", user_id);
+            string sql = string.Format("select * from [users] where user_id={0}", user_id);
 
             DataRow dr;
             try
@@ -89,7 +98,7 @@ namespace DBFNS
         }
         public static User GetUserByEmail(string email)
         {
-            string sql = string.Format("select * from users where user_email='{0}' ", email);
+            string sql = string.Format("select * from [users] where user_email='{0}'", email);
 
             DataRow dr;
             try
@@ -101,7 +110,7 @@ namespace DBFNS
         }
         public static Album GetAlbumById(int album_id)
         {
-            string sql = string.Format("select * from albums where album_id='{0}' ", album_id);
+            string sql = string.Format("select * from [albums] where album_id={0}", album_id);
 
             DataRow dr;
             try
@@ -111,21 +120,21 @@ namespace DBFNS
             }
             catch { return null; }
         }
-        public static Image GetImageById(int image_id)
+        public static Img GetImageById(int image_id)
         {
-            string sql = string.Format("select * from images where image_id='{0}' ", image_id);
+            string sql = string.Format("select * from [images] where image_id={0}", image_id);
 
             DataRow dr;
             try
             {
                 dr = selectFromTable(sql).Rows[0];
-                return new Image(int.Parse(dr["image_id"].ToString()), int.Parse(dr["owner_id"].ToString()), int.Parse(dr["album_id"].ToString()), dr["image_name"].ToString(), DateTime.Parse(dr["image_creation_time"].ToString()), dr["image_file"].ToString());
+                return new Img(int.Parse(dr["image_id"].ToString()), int.Parse(dr["image_owner_id"].ToString()), int.Parse(dr["image_album_id"].ToString()), dr["image_name"].ToString(), DateTime.Parse(dr["image_creation_time"].ToString()), dr["image_file_path"].ToString());
             }
             catch { return null; }
         }
         public static List<Album> GetUserAlbumsById(int owner_id)
         {
-            string sql = string.Format("select * from albums where album_owner_id='{0}' ", owner_id);
+            string sql = string.Format("select * from [albums] where album_owner_id={0}", owner_id);
 
             DataTable dt;
             try
@@ -149,9 +158,9 @@ namespace DBFNS
 
             return toRet;
         }
-        public static List<Image> GetAlbumImagesById(int album_id)
+        public static List<Img> GetAlbumImagesById(int album_id)
         {
-            string sql = string.Format("select * from images where album_id='{0}' ", album_id);
+            string sql = string.Format("select * from [images] where image_album_id={0}", album_id);
 
             DataTable dt;
             try
@@ -166,18 +175,18 @@ namespace DBFNS
             if (dt.Rows.Count == 0)
                 return null;
 
-            List<Image> toRet = new List<Image>();
+            List<Img> toRet = new List<Img>();
             for (int i = 0; i < dt.Rows.Count; i++)
             {
                 DataRow dr = dt.Rows[i];
-                toRet.Add(new Image(int.Parse(dr["image_id"].ToString()), int.Parse(dr["owner_id"].ToString()), int.Parse(dr["album_id"].ToString()), dr["image_name"].ToString(), DateTime.Parse(dr["image_creation_time"].ToString()), dr["image_file"].ToString()));
+                toRet.Add(new Img(int.Parse(dr["image_id"].ToString()), int.Parse(dr["image_owner_id"].ToString()), int.Parse(dr["image_album_id"].ToString()), dr["image_name"].ToString(), DateTime.Parse(dr["image_creation_time"].ToString()), dr["image_file_path"].ToString()));
             }
 
             return toRet;
         }
         public static List<User> GetUsersByName(string user_name)
         {
-            string sql = string.Format("select * from users where user_name='{0}' ", user_name);
+            string sql = string.Format("select * from [users] where user_name='{0}'", user_name);
 
             DataTable dt = selectFromTable(sql);
             List<User> listToRet = new List<User>();
@@ -194,7 +203,7 @@ namespace DBFNS
         }
         public static List<Album> GetAlbumsByName(string album_name)
         {
-            string sql = string.Format("select * from albums where album_name='{0}' ", album_name);
+            string sql = string.Format("select * from [albums] where album_name='{0}'", album_name);
             DataTable dt = selectFromTable(sql);
             List<Album> listToRet = new List<Album>();
 
@@ -208,18 +217,18 @@ namespace DBFNS
 
             return listToRet;
         }
-        public static List<Image> GetImagesByName(string image_name)
+        public static List<Img> GetImagesByName(string image_name)
         {
-            string sql = string.Format("select * from images where image_name='{0}' ", image_name);
+            string sql = string.Format("select * from [images] where image_name='{0}'", image_name);
             DataTable dt = selectFromTable(sql);
-            List<Image> listToRet = new List<Image>();
+            List<Img> listToRet = new List<Img>();
 
             if (dt.Rows.Count == 0)
                 return null;
 
             foreach (DataRow dr in dt.Rows)
             {
-                listToRet.Add(new Image(int.Parse(dr["image_id"].ToString()), int.Parse(dr["image_a;bum_id"].ToString()), int.Parse(dr["image_owner_id"].ToString()), dr["image_name"].ToString(), DateTime.Parse(dr["image_creation_time"].ToString()), dr["image_file_path"].ToString()));
+                listToRet.Add(new Img(int.Parse(dr["image_id"].ToString()), int.Parse(dr["image_album_id"].ToString()), int.Parse(dr["image_owner_id"].ToString()), dr["image_name"].ToString(), DateTime.Parse(dr["image_creation_time"].ToString()), dr["image_file_path"].ToString()));
             }
             return listToRet;
         }
@@ -243,7 +252,7 @@ namespace DBFNS
                 throw new Exception("Email is already in use!");
             }
 
-            string sql = string.Format("insert into users (user_name, user_password, user_email, user_birthday, user_album_count, is_admin) values('{0}', '{1}', '{2}', #{3}#, '{4}' ,{5})", u.UserName, u.UserPassword, u.UserEmail, u.UserBirthday, u.UserAlbumCount, u.IsAdmin);
+            string sql = string.Format("insert into users (user_name, user_password, user_email, user_birthday, user_album_count, is_admin) values('{0}', '{1}', '{2}', #{3}#, {4} ,{5})", u.UserName, u.UserPassword, u.UserEmail, u.UserBirthday, u.UserAlbumCount, u.IsAdmin);
             return DBF.ChangeTable(sql) == 1;
         }
         public static bool AddAlbum(Album a)
@@ -262,16 +271,16 @@ namespace DBFNS
                 }
             }
 
-            string sql = string.Format("insert into albums (album_owner_id, album_name, album_creation_time, album_size) values('{0}', '{1}', #{2}#, '{3}')", a.AlbumOwnerId, a.AlbumName, a.AlbumCreationTime, a.AlbumSize);
+            string sql = string.Format("insert into albums (album_owner_id, album_name, album_creation_time, album_size) values({0}, '{1}', #{2}#, {3})", a.AlbumOwnerId, a.AlbumName, a.AlbumCreationTime, a.AlbumSize);
             return DBF.ChangeTable(sql) == 1;
         }
-        public static bool AddImage(Image i)
+        public static bool AddImage(Img i)
         {
             // Get all images with the same name and check if their album is identical.
-            List<Image> images_to_check = GetImagesByName(i.ImageName);
+            List<Img> images_to_check = GetImagesByName(i.ImageName);
             if (images_to_check != null)
             {
-                foreach (Image img in images_to_check)
+                foreach (Img img in images_to_check)
                 {
                     if (img.ImageAlbumId == i.ImageAlbumId)
                     {
@@ -280,7 +289,7 @@ namespace DBFNS
                     }
                 }
             }
-            string sql = string.Format("insert into images (image_album_id, image_owner_id, image_name, image_creation_time, image_file_path) values('{0}', '{1}', '{2}', #{3}#, '{4}')", i.ImageAlbumId, i.ImageOwnerId, i.ImageName, i.ImageCreationTime, i.ImageFilePath);
+            string sql = string.Format("insert into images (image_album_id, image_owner_id, image_name, image_creation_time, image_file_path) values({0}, {1}, '{2}', #{3}#, '{4}')", i.ImageAlbumId, i.ImageOwnerId, i.ImageName, i.ImageCreationTime, i.ImageFilePath);
             return DBF.ChangeTable(sql) == 1;
         }
         #endregion

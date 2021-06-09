@@ -9,9 +9,9 @@ using AlbumNS;
 /// <summary>
 /// Summary description for Image
 /// </summary>
-namespace ImageNS
+namespace ImgNS
 {
-    public class Image
+    public class Img
     {
         private int image_id;
         public int ImageId
@@ -89,7 +89,7 @@ namespace ImageNS
             {
                 if (value is string)
                 {
-                    if (value.Length > Constants.MAX_IMAGE_NAME_LENGTH)
+                    if (value.Length > Constants.MIN_IMAGE_NAME_LENGTH)
                     {
                         if (value.Length <= Constants.MAX_IMAGE_NAME_LENGTH)
                         {
@@ -151,12 +151,12 @@ namespace ImageNS
         }
 
         // Default Constructor.
-        public Image()
+        public Img()
         {
             this.wipe();
         }
         // Constructor that sets all necessary values.
-        public Image(int id, int owner_id, int album_id, string name, DateTime creation_time, string file_path)
+        public Img(int id, int owner_id, int album_id, string name, DateTime creation_time, string file_path)
         {
             this.wipe();
             try
@@ -175,9 +175,9 @@ namespace ImageNS
             }
         }
         // Constructor that sets the creation time to be DateTime.Now
-        public Image(int id, int owner, int album, string name, string file_path) : this(id, owner, album, name, DateTime.Now, file_path) { }
+        public Img(int id, int owner, int album, string name, string file_path) : this(id, owner, album, name, DateTime.Now, file_path) { }
         // Copy Constructor.
-        public Image(Image other) : this(other.ImageId, other.ImageOwnerId, other.ImageAlbumId, other.ImageName, other.ImageCreationTime, other.ImageFilePath) { }
+        public Img(Img other) : this(other.ImageId, other.ImageOwnerId, other.ImageAlbumId, other.ImageName, other.ImageCreationTime, other.ImageFilePath) { }
         
         /// <summary>
         /// This function resets all the values of the class to known default values.

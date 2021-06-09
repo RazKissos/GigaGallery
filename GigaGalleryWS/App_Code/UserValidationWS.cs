@@ -51,9 +51,19 @@ public class UserValidationWS : System.Web.Services.WebService
         return albumName.Length >= Constants.MIN_ALBUM_NAME_LENGTH && albumName.Length <= Constants.MAX_ALBUM_NAME_LENGTH;
     }
     [WebMethod]
+    public string albumNameLengthInvalidMessage()
+    {
+        return string.Format("Album Name Length is invalid! needs to be between {0} and {1}!", Constants.MIN_ALBUM_NAME_LENGTH, Constants.MAX_ALBUM_NAME_LENGTH);
+    }
+    [WebMethod]
     public bool isImageNameValid(string imageName)
     {
         return imageName.Length >= Constants.MIN_IMAGE_NAME_LENGTH && imageName.Length <= Constants.MAX_IMAGE_NAME_LENGTH;
+    }
+    [WebMethod]
+    public string imageNameLengthInvalidMessage()
+    {
+        return string.Format("Image Name Length is invalid! needs to be between {0} and {1}!", Constants.MIN_IMAGE_NAME_LENGTH, Constants.MAX_IMAGE_NAME_LENGTH);
     }
     public UserValidationWS()
     {

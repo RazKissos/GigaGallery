@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using ConstantsNS;
 using UserNS;
-using ImageNS;
+using ImgNS;
 
 /// <summary>
 /// Summary description for Album
@@ -74,13 +74,13 @@ namespace AlbumNS
                             this.album_name = value;
                         }
                         else
-                            throw new Exception(string.Format("Image Name length cannot exceed the max length of {0}!", Constants.MAX_ALBUM_NAME_LENGTH));
+                            throw new Exception(string.Format("Album Name length cannot exceed the max length of {0}!", Constants.MAX_ALBUM_NAME_LENGTH));
                     }
                     else
-                        throw new Exception(string.Format("Image Name length cannot be below minimum required username length({0})!", Constants.MIN_ALBUM_NAME_LENGTH));
+                        throw new Exception(string.Format("Albu, Name length cannot be below minimum required username length({0})!", Constants.MIN_ALBUM_NAME_LENGTH));
                 }
                 else
-                    throw new ArgumentException("Image Name must be a string!");
+                    throw new ArgumentException("Album Name must be a string!");
             }
         }
 
@@ -109,7 +109,7 @@ namespace AlbumNS
             {
                 if (value >= 0)
                 {
-                    this.album_id = value;
+                    this.album_size = value;
                 }
                 else
                     throw new Exception("Album Size must be positive or zero!");

@@ -34,7 +34,7 @@
                     <asp:TextBox ID="passwordTB" runat="server" placeholder="password"></asp:TextBox>
                 </td>
                 <td class="tdStyle">
-                    <asp:Label ID="errorLabel" runat="server" Visible="false"></asp:Label>
+                    <asp:Label ID="errorLabel" runat="server" Visible="false" ForeColor="Red"></asp:Label>
                 </td>
             </tr>
             <tr>
@@ -61,7 +61,6 @@
                 </td>
             </tr>
             <tr>
-                <%// Find a way to get table names and column names from database and not hardcode it in asp. //%>
                 <td class="tdStyle">
                     <label>Table to search in: </label>
                 </td>
@@ -83,14 +82,23 @@
             </tr>
             <tr>
                 <td class="tdStyle">
-                    <input id="SearchBar">
+                    <asp:TextBox id="SearchBarTB" runat="server"></asp:TextBox>
                 </td>
 
                 <td class="tdStyle">
                     <asp:Button runat="server" id="searchDataBtn" onclick="searchDataBtn_Click" Text="Search"></asp:Button>
                 </td>
             </tr>
+                               
         </table>
+        <br />
+        <h4 align="center">Search Results</h4>
+        <asp:DataList ID="searchResultsDL" runat="server" BackColor="White" BorderColor="#999999" BorderStyle="Solid" BorderWidth="1px" CellPadding="3" ForeColor="Black" GridLines="Vertical">
+            <AlternatingItemStyle BackColor="#CCCCCC" />
+            <FooterStyle BackColor="#CCCCCC" />
+            <HeaderStyle BackColor="Black" Font-Bold="True" ForeColor="White" />
+            <SelectedItemStyle BackColor="#000099" Font-Bold="True" ForeColor="White" />
+        </asp:DataList>
         <br />
         <h4 align="center">Users</h4>
         <asp:GridView ID="UsersGridView" runat="server" AutoGenerateColumns="False" BackColor="White" BorderColor="#DEDFDE" BorderStyle="None" BorderWidth="1px" CellPadding="4" DataKeyNames="user_id" DataSourceID="Users" ForeColor="Black" GridLines="Vertical">
